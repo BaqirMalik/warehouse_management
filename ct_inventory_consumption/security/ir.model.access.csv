@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_inventory_consumption_request,ct_inventory_consumption.inventory_consumption_request,model_inventory_consumption_request,,1,1,1,1
+access_inventory_consumption_request_lines,ct_inventory_consumption.inventory_consumption_request_lines',model_inventory_consumption_request_lines,,1,1,1,1

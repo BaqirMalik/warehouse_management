@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <!-- Tree View -->
+        <record id="view_inventory_consumption__request_tree" model="ir.ui.view">
+            <field name="name">inventory.consumption.request.tree</field>
+            <field name="model">inventory.consumption.request</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="reference"/>
+                    <field name="requester_id" readonly="status == 'pending'"/>
+                    <field name="date"/>
+                    <field name="status" widget="badge" decoration-info="status == 'pending'"
+                           decoration-success="status == 'approved'" decoration-danger="status == 'cancelled'"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- Form View -->
+        <record id="view_inventory_consumption_request_form" model="ir.ui.view">
+            <field name="name">inventory.consumption.request.form</field>
+            <field name="model">inventory.consumption.request</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+                        <button name="action_request" string="Request" type="object" invisible="status != 'draft'"
+                                class="oe_highlight" data-hotkey="v"/>
+                        <button name="action_approve" string="Approve" type="object" invisible="status != 'pending'"
+                                class="oe_highlight" data-hotkey="v" groups="ct_inventory_consumption.group_manager"/>
+                        <button name="action_cancel" string="Cancel" type="object" invisible="status != 'pending'"
+                                class="oe_highlight" data-hotkey="v" groups="ct_inventory_consumption.group_manager"/>
+
+                        <button name="action_reset" string="Reset to Draft" type="object"
+                                invisible="status != 'cancelled'"
+                                class="oe_highlight" data-hotkey="v" groups="ct_inventory_consumption.group_manager"/>
+
+                        <field name="status" widget="statusbar" statusbar_visible="draft,approved,cancelled,reject"/>
+                    </header>
+                    <sheet>
+                        <field name="stock_move_count" invisible="1"/>
+                        <field name="account_move_count" invisible="1"/>
+                        <div class="oe_button_box" name="button_box">
+                            <button class="oe_stat_button" name="action_open_related_stock_move"
+                                    type="object" icon="fa-bars" string="Product Moves"
+                                    invisible="stock_move_count == 0">
+                            </button>
+
+                            <button class="oe_stat_button" name="action_open_related_account_move"
+                                    type="object" icon="fa-bars" string="Accounting Entries"
+                                    invisible="account_move_count == 0">
+                            </button>
+                        </div>
+                        <div class="oe_title">
+                            <label for="reference"/>
+                            <h1>
+                                <field name="reference" placeholder="e.g. Material Consumption Request"/>
+                            </h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="status" invisible="1"/>
+                                <field name="requester_id" readonly="status == 'pending'"/>
+
+                            </group>
+                            <group>
+                                <field name="date"/>
+                                <field name="redirect_link" invisible="1"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page name="Inventory_consumption_request_lines" string="Products">
+                                <field name="Inventory_consumption_request_lines" required="True"
+                                       readonly="status != 'draft'">
+                                    <tree editable="bottom">
+                                        <field name="product_id" width="50%"
+                                               options="{'no_quick_create': True, 'no_create_edit': True, 'no_open': True}"
+                                        />
+                                        <field name="qty_available" width="25%"/>
+                                        <field name="qty_demand" width="25%"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+
+        <record id="view_inventory_consumption_search_view" model="ir.ui.view">
+            <field name="name">view.inventory.consumption.search.view</field>
+            <field name="model">inventory.consumption.request</field>
+            <field name="arch" type="xml">
+                <search string="Inventory Consumption Request Search">
+                    <field name="reference"/>
+                    <field name="status"/>
+                    <field name="date"/>
+                    <group expand="0" string="Group By">
+                        <filter string="Date" name="date" date="date"/>
+                        <filter string="status" name="groupby_status" domain="[]"
+                                context="{'group_by':'status'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+
+        <record model="ir.ui.view" id="inventory_consumption_request_kanban">
+            <field name="name">inventory.consumption.request.kanban</field>
+            <field name="model">inventory.consumption.request</field>
+            <field name="arch" type="xml">
+                <kanban class="o_kanban_mobile">
+                    <field name="reference"/>
+                    <field name="date"/>
+                    <field name="status"/>
+
+                    <progressbar field="status"
+                                 colors='{"draft": "default", "pending": "warning", "approved": "info", "cancelled": "danger"}'/>
+                    <templates>
+                        <t t-name="kanban-box">
+                            <div t-attf-class="oe_kanban_card oe_kanban_global_click">
+                                <div class="o_kanban_record_top mb16">
+                                    <div class="o_kanban_record_headings ms-1">
+                                        <strong class="o_kanban_record_title">
+                                            <span>
+                                                <t t-esc="record.reference.value"/>
+                                            </span>
+                                        </strong>
+                                    </div>
+                                    <div class="oe_kanban_top_right">
+                                        <field name="status" class="kanban_badge" widget="label_selection"
+                                               options="{'classes': {'draft': 'default', 'pending': 'warning', 'approved': 'info', 'cancelled': 'danger'}}"/>
+                                    </div>
+                                </div>
+                                <div class="o_kanban_record_bottom">
+                                    <div class="oe_kanban_bottom_left">
+                                        <span>
+                                            <t t-esc="record.date.value and record.date.value.split(' ')[0] or False"/>
+                                        </span>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+
+
+        <!-- Action -->
+        <record id="action_inventory_consumption_request_action" model="ir.actions.act_window">
+            <field name="name">Inventory Consumption Request</field>
+            <field name="res_model">inventory.consumption.request</field>
+            <field name="view_mode">tree,kanban,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Click to Create a New Inventory Consumption Request.
+                </p>
+            </field>
+        </record>
+
+    </data>
+</odoo>

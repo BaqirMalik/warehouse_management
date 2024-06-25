@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <menuitem id="menu_stock_inventory_consumption" name="Inventory Consumption Request"
+              parent="stock.menu_stock_warehouse_mgmt"
+              action="action_inventory_consumption_request_action"
+              sequence="300"/>
+
+    <menuitem id="menu_stock_inventory_consumption" name="Consumption Request"
+              groups="ct_inventory_consumption.group_invnetory_consumption_user"
+              action="action_inventory_consumption_request_action"
+              sequence="290"
+              web_icon="ct_inventory_consumption,static/description/inventory_consumption.png"
+    />
+
+    <menuitem id="product_product_dashboard_menu"
+              name="Products"
+              action="stock.stock_product_normal_action"
+              web_icon="ct_inventory_consumption,static/description/product_icon.png"
+              sequence="280"
+    />
+    <menuitem id="menu_purchase_vendors" name="Vendors"
+              action="account.res_partner_action_supplier"
+              sequence="285"
+              web_icon="ct_inventory_consumption,static/description/vendor_icon.png"
+    />
+    <menuitem id="purchase.menu_purchase_rfq" active="False"/>
+    <menuitem id="purchase.purchase_report_main" active="False"/>
+    <menuitem id="purchase.menu_product_pricelist_action2_purchase" active="False"/>
+
+</odoo>
