@@ -26,5 +26,6 @@
     <menuitem id="purchase.menu_purchase_rfq" active="False"/>
     <menuitem id="purchase.purchase_report_main" active="False"/>
     <menuitem id="purchase.menu_product_pricelist_action2_purchase" active="False"/>
+    <menuitem id="account.menu_finance" active="False"/>
 
 </odoo>
