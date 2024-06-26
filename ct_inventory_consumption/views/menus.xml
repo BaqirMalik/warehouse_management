@@ -6,7 +6,7 @@
               sequence="300"/>
 
     <menuitem id="menu_stock_inventory_consumption" name="Consumption Request"
-              groups="ct_inventory_consumption.group_invnetory_consumption_user"
+              groups="ct_inventory_consumption.group_invnetory_consumption_user,ct_inventory_consumption.group_manager"
               action="action_inventory_consumption_request_action"
               sequence="290"
               web_icon="ct_inventory_consumption,static/description/inventory_consumption.png"
