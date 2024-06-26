@@ -11,6 +11,7 @@
             <xpath expr="//button[@name='action_rfq_send']" position="attributes">
                 <attribute name="invisible">1</attribute>
             </xpath>
+            <xpath expr="//field[@name='taxes_id']" position="replace"/>
         </field>
     </record>
 </odoo>
