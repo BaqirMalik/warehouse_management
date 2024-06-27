@@ -14,7 +14,7 @@
 
     <menuitem id="product_product_dashboard_menu"
               name="Products"
-              action="stock.stock_product_normal_action"
+              action="stock.product_template_action_product"
               web_icon="ct_inventory_consumption,static/description/product_icon.png"
               sequence="280"
     />
