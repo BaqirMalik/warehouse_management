@@ -9,8 +9,9 @@
     'website': "https://crecentech.com/",
     'category': 'Uncategorized',
     'version': '0.1',
-    'depends': ['website'],
+    'depends': ['website','hr_recruitment'],
     'data': [
+        'data/custom_hr_integration_data.xml',
         'views/menus.xml',
     ],
 }
