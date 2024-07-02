@@ -15,17 +15,23 @@
     <menuitem id="product_product_dashboard_menu"
               name="Products"
               action="stock.product_template_action_product"
+              groups="ct_inventory_consumption.group_invnetory_consumption_user,ct_inventory_consumption.group_manager"
               web_icon="ct_inventory_consumption,static/description/product_icon.png"
               sequence="280"
     />
     <menuitem id="menu_purchase_vendors" name="Vendors"
               action="account.res_partner_action_supplier"
               sequence="285"
+              groups="ct_inventory_consumption.group_invnetory_consumption_user,ct_inventory_consumption.group_manager"
               web_icon="ct_inventory_consumption,static/description/vendor_icon.png"
     />
+
+    <menuitem id="stock.menu_stock_root" name="Inventory" groups="ct_inventory_consumption.group_invnetory_consumption_user,ct_inventory_consumption.group_manager"/>
+    <menuitem id="purchase.menu_purchase_root" name="Purchase" groups="ct_inventory_consumption.group_invnetory_consumption_user,ct_inventory_consumption.group_manager"/>
     <menuitem id="purchase.menu_purchase_rfq" active="False"/>
     <menuitem id="purchase.purchase_report_main" active="False"/>
     <menuitem id="purchase.menu_product_pricelist_action2_purchase" active="False"/>
     <menuitem id="account.menu_finance" active="False"/>
+<!--    <menuitem id="website.menu_website_configuration" active="False"/>-->
 
 </odoo>
