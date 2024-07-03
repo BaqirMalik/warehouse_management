@@ -13,11 +13,46 @@ class FetchJobApplications(http.Controller):
         headers_json = {'Content-Type': 'application/json'}
         try:
             # Extract data fields from request parameters
-            career_id = int(kw.get('career_id'))
-            first_name = kw.get('first_name')
-            phone = kw.get('phone')
-            email = kw.get('email')
-            description = kw.get('description')
+            if 'career_id' in kw and kw['career_id']:
+                career_id = int(kw.get('career_id'))
+            else:
+                response_data = {
+                    'error': 'Career id is Required',
+                }
+                return Response(json.dumps(response_data), headers=headers_json)
+
+            if 'first_name' in kw and kw['first_name']:
+                first_name = kw.get('first_name')
+            else:
+                response_data = {
+                    'error': 'Name is Required',
+                }
+                return Response(json.dumps(response_data), headers=headers_json)
+
+            if 'phone' in kw and kw['phone']:
+                phone = kw.get('phone')
+            else:
+                response_data = {
+                    'error': 'Phone is Required',
+                }
+                return Response(json.dumps(response_data), headers=headers_json)
+
+            if 'email' in kw and kw['email']:
+                email = kw.get('email')
+            else:
+                response_data = {
+                    'error': 'Email is Required',
+                }
+                return Response(json.dumps(response_data), headers=headers_json)
+
+            if 'description' in kw and kw['description']:
+                description = kw.get('description')
+            else:
+                response_data = {
+                    'error': 'Description is Required',
+                }
+                return Response(json.dumps(response_data), headers=headers_json)
+
             file_data = kw.get('file')
 
             # Find the job position related to the career_id
@@ -38,13 +73,8 @@ class FetchJobApplications(http.Controller):
                 'description': description,
             }
             new_applicant = Applicant.sudo().create(vals)
-
-            # Optionally handle file upload (if file_data is provided)
             if file_data:
-                # Ensure file_data is extracted correctly (example for Flask/Werkzeug)
                 attachment_data = file_data.read()  # Read file content from FileStorage object
-
-                # Process file_data to create an attachment
                 attachment_vals = {
                     'name': file_data.filename,  # Filename of the uploaded file
                     'datas': base64.b64encode(attachment_data),  # Store the attachment data
