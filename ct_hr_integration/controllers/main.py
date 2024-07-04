@@ -13,11 +13,19 @@ class FetchJobApplications(http.Controller):
         headers_json = {'Content-Type': 'application/json'}
         try:
             # Extract data fields from request parameters
-            if 'career_id' in kw and kw['career_id']:
-                career_id = int(kw.get('career_id'))
+            if 'crecentech_career_id' in kw and kw['crecentech_career_id']:
+                crecentech_career_id = int(kw.get('crecentech_career_id'))
             else:
                 response_data = {
-                    'error': 'Career id is Required',
+                    'error': 'Crecentech Career id is Required',
+                }
+                return Response(json.dumps(response_data), headers=headers_json)
+
+            if 'crecentech_career_name' in kw and kw['crecentech_career_name']:
+                crecentech_career_name = kw.get('crecentech_career_name')
+            else:
+                response_data = {
+                    'error': 'Crecentech Career Name is Required',
                 }
                 return Response(json.dumps(response_data), headers=headers_json)
 
@@ -56,10 +64,10 @@ class FetchJobApplications(http.Controller):
             file_data = kw.get('file')
 
             # Find the job position related to the career_id
-            job_position = request.env['hr.job'].sudo().browse(career_id)
+            job_position = request.env['hr.job'].sudo().search([('name','=',crecentech_career_name)],limit=1)
 
             if not job_position:
-                _logger.error(f"Job position not found for career_id: {career_id}")
+                _logger.error(f"Job position not found for Job Name: {crecentech_career_name}")
                 return "Job position not found"
 
             # Create an hr.applicant record
