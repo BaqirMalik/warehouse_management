@@ -13,6 +13,7 @@
     'data': [
         'data/custom_hr_integration_data.xml',
         'views/menus.xml',
+        'views/inherit_hr_job_views.xml',
     ],
 }
 

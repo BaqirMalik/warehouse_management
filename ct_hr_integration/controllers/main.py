@@ -64,11 +64,14 @@ class FetchJobApplications(http.Controller):
             file_data = kw.get('file')
 
             # Find the job position related to the career_id
-            job_position = request.env['hr.job'].sudo().search([('name','=',crecentech_career_name)],limit=1)
+            job_position = request.env['hr.job'].sudo().search([('crecentech_career_id','=',crecentech_career_id)],limit=1)
 
             if not job_position:
                 _logger.error(f"Job position not found for Job Name: {crecentech_career_name}")
-                return "Job position not found"
+                response_data = {
+                    'error': f"Job position not found for Job Name: {crecentech_career_name}",
+                }
+                return Response(json.dumps(response_data), headers=headers_json)
 
             # Create an hr.applicant record
             Applicant = request.env['hr.applicant'].with_user(SUPERUSER_ID)

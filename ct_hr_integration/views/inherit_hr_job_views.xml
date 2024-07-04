@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="inherit_hr_job_form_view" model="ir.ui.view">
+        <field name="name">inherit.hr.job.form.inherit.view</field>
+        <field name="model">hr.job</field>
+        <field name="inherit_id" ref="hr.view_hr_job_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='job_description_page']" position="after">
+                <page name="Crecentech Career Details">
+                    <group>
+                        <group>
+                            <field name="crecentech_career_id"/>
+                            <field name="crecentech_career_name"/>
+                        </group>
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>
