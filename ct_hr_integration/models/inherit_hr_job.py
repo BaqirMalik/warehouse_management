@@ -5,5 +5,5 @@ class InheritHrJob(models.Model):
     _inherit = "hr.job"
 
     crecentech_career_id = fields.Integer(string='Crecentect Career ID')
-    crecentech_career_name = fields.Integer(string='Crecentect Career Name')
+    crecentech_career_name = fields.Char(string='Crecentect Career Name')
 
