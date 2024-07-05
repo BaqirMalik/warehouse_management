@@ -22,6 +22,7 @@
         'views/inherit_product_supplier_info.xml',
         'views/inherit_stock_move.xml',
         'views/inherit_purchase_order.xml',
+        'views/inherit_new_quantity_wizard.xml',
         'views/menus.xml',
     ],
 'assets': {
