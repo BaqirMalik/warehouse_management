@@ -32,6 +32,5 @@
     <menuitem id="purchase.purchase_report_main" active="False"/>
     <menuitem id="purchase.menu_product_pricelist_action2_purchase" active="False"/>
     <menuitem id="account.menu_finance" active="False"/>
-<!--    <menuitem id="website.menu_website_configuration" active="False"/>-->
 
 </odoo>

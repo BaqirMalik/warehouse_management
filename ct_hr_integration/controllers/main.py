@@ -61,7 +61,13 @@ class FetchJobApplications(http.Controller):
                 }
                 return Response(json.dumps(response_data), headers=headers_json)
 
-            file_data = kw.get('file')
+            if 'file' in kw and kw['file']:
+                file_data = kw.get('file')
+            else:
+                response_data = {
+                    'error': 'File Attachment is Required',
+                }
+                return Response(json.dumps(response_data), headers=headers_json)
 
             # Find the job position related to the career_id
             job_position = request.env['hr.job'].sudo().search([('crecentech_career_id','=',crecentech_career_id)],limit=1)
@@ -99,6 +105,16 @@ class FetchJobApplications(http.Controller):
             return f"Error creating applicant: {e}"
 
         if new_applicant:
+            mail_server = request.env['ir.mail_server'].sudo().search([], limit=1)
+            users = request.env['res.users'].sudo().search(
+                [('groups_id', 'in', [request.env.ref('hr_recruitment.group_hr_recruitment_manager').id])])
+
+            # Send email notification to each user in the group
+            template = request.env.ref('ct_hr_integration.mail_template_for_crecentech_job_position')
+            for user in users:
+                template.sudo().write({'email_from': mail_server.smtp_user})
+                template.sudo().write({'email_to': user.email})
+                template.sudo().send_mail(new_applicant.id, force_send=True)
             response_data = {
                 'id': new_applicant.id,
                 'message': 'Record created successfully',

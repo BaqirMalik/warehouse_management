@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="inherit_hr_applicant_form_view" model="ir.ui.view">
+        <field name="name">inherit.hr.applicant.form.inherit.view</field>
+        <field name="model">hr.applicant</field>
+        <field name="inherit_id" ref="hr_recruitment.hr_applicant_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='type_id']" position="after">
+                <field name="redirect_link" invisible="1"/>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

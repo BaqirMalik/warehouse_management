@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="mail_template_for_crecentech_job_position" model="mail.template">
+        <field name="name">Job Application Recieved</field>
+        <field name="model_id" ref="ct_hr_integration.model_hr_applicant"/>
+        <field name="subject">Send Email by Creation of Job Application</field>
+        <field name="email_from">${object.env.user.email}</field>
+        <field name="email_to">${object.requester_id.login}</field>
+        <field name="body_html" type="html">
+            <table border="0" cellpadding="0" cellspacing="0" style="width:100%; margin:0px auto;">
+                <tbody>
+                    <tr>
+                        <td valign="top" style="text-align: left; font-size: 14px;">
+                            Dear
+                            <strong>HR,</strong>
+                            <br/>
+                            <span>I hope this message finds you well. We kindly request your immediate attention to the application
+                                that is recieved against the job position <t t-esc="object.name"/>:
+                            </span>
+                            <span>, which has been forwarded to your department. </span>
+
+                            Your prompt action on this matter is greatly appreciated, as it ensures smooth operations
+                            and timely completion of our Recruitment processes.
+
+                            Thank you for your cooperation and attention to this matter.
+                            <br/>
+                            <br/>
+                            <p>Best Regards,</p>
+                            <br/>
+                            <br/>
+                            <a t-att-href="object.redirect_link"
+                               style="background-color: #0080e9; margin-top: 10px; padding: 10px; text-decoration: none; color: #fff; border-radius: 5px; font-size: 16px;">
+                                Click Here to View
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </field>
+    </record>
+
+</odoo>
