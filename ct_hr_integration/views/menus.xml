@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <menuitem id="website.menu_website_configuration" active="False"/>
+    <menuitem id="hr.menu_hr_root" name="Employees" groups="ct_hr_integration.group_hr_employee_user"/>
+
 </odoo>
