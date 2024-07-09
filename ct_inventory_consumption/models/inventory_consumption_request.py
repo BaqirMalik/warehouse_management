@@ -29,8 +29,12 @@ class InventoryConsumptionRequest(models.Model):
     redirect_link = fields.Char(string='Redirect Link')
 
     def unlink(self):
-        if self.env.user.has_group('ct_inventory_consumption.group_invnetory_consumption_user'):
-            raise ValidationError('You are not allowed to delete a request.')
+        for record in self:
+            if self.env.user.has_group('ct_inventory_consumption.group_invnetory_consumption_user'):
+                raise ValidationError('You are not allowed to delete this request.')
+            if record.status == 'approved':
+                raise ValidationError("Approved Request can't be deleted")
+        return super(InventoryConsumptionRequest, self).unlink()
 
     def action_open_related_account_move(self):
         account_moves = self.env['account.move'].search(
