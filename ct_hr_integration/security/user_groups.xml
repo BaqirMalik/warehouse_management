@@ -4,4 +4,9 @@
         <field name="name">Employee</field>
         <field name="category_id" ref="base.module_category_human_resources_employees"/>
     </record>
+
+    <record id="group_hr_time_off_user" model="res.groups">
+        <field name="name">User: Time Off</field>
+        <field name="category_id" ref="base.module_category_human_resources_time_off"/>
+    </record>
 </odoo>

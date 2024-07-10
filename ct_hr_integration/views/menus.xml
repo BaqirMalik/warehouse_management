@@ -2,5 +2,6 @@
 <odoo>
     <menuitem id="website.menu_website_configuration" active="False"/>
     <menuitem id="hr.menu_hr_root" name="Employees" groups="ct_hr_integration.group_hr_employee_user"/>
+    <menuitem id="hr_holidays.menu_hr_holidays_root" name="Time Off" groups="ct_hr_integration.group_hr_time_off_user"/>
 
 </odoo>
