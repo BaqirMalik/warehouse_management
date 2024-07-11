@@ -15,6 +15,7 @@
         'security/ir.model.access.csv',
         'data/send_email_for_job_application.xml',
         'views/menus.xml',
+        'views/inherit_hr_employee.xml',
         'views/inherit_hr_job_views.xml',
         'views/inherit_hr_applicant_views.xml',
     ],
