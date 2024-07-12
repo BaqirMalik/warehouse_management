@@ -24,7 +24,7 @@
         'views/account_move_views.xml',
         'views/account_asset_templates.xml',
         'views/asset_category_views.xml',
-        'views/product_views.xml',
+        # 'views/product_views.xml',
         'report/account_asset_report_views.xml',
     ],
     'assets': {

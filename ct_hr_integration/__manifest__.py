@@ -9,7 +9,7 @@
     'website': "https://crecentech.com/",
     'category': 'Uncategorized',
     'version': '0.1',
-    'depends': ['base','website','hr_recruitment'],
+    'depends': ['base','website','hr_recruitment','hr_holidays'],
     'data': [
         'security/user_groups.xml',
         'security/ir.model.access.csv',

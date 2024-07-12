@@ -2,6 +2,16 @@
 <odoo>
     <data>
 
+        <record id="model_inventory_consumption_request_server_action" model="ir.actions.server">
+            <field name="name">Generate Inventory Consumption Request Sequence</field>
+            <field name="model_id"
+                   ref="model_inventory_consumption_request"/> <!-- Ensure this is the correct model reference -->
+            <field name="binding_model_id"
+                   ref="model_inventory_consumption_request"/> <!-- Ensure this is the correct model reference -->
+            <field name="binding_view_types">form,list</field>
+            <field name="state">code</field>
+            <field name="code">action = records.action_generate_sequence_numbers()</field>
+        </record>
         <!-- Tree View -->
         <record id="view_inventory_consumption__request_tree" model="ir.ui.view">
             <field name="name">inventory.consumption.request.tree</field>

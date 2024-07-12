@@ -153,16 +153,25 @@ class InventoryConsumptionRequest(models.Model):
     def action_reset(self):
         self.status = 'draft'
 
+    # @api.model
+    # def create(self, vals):
+    #     if vals.get('reference', _('New')) == _('New'):
+    #         vals['reference'] = self.env['ir.sequence'].next_by_code('inventory.consumption.request') or _('New')
+    #     return super(InventoryConsumptionRequest, self).create(vals)
+
     @api.model
     def create(self, vals):
         if vals.get('reference', _('New')) == _('New'):
             vals['reference'] = self.env['ir.sequence'].next_by_code('inventory.consumption.request') or _('New')
-        return super(InventoryConsumptionRequest, self).create(vals)
-
-    @api.model
-    def create(self, vals):
         record = super().create(vals)
         base_url = self.env['ir.config_parameter'].get_param('web.base.url')
-        base_url += '/web#id=%d&view_type=form&model=%s' % (record.id, record._name)
-        record.write({'redirect_link': base_url})
+        redirect_link = '%s/web#id=%d&view_type=form&model=%s' % (base_url, record.id, record._name)
+        record.write({'redirect_link': redirect_link})
         return record
+
+
+    def action_generate_sequence_numbers(self):
+        for record in self:
+            if record.reference == 'New':
+                new_reference = self.env['ir.sequence'].next_by_code('inventory.consumption.request') or _('New')
+                record.write({'reference': new_reference})
