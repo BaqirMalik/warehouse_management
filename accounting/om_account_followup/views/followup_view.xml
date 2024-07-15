@@ -195,7 +195,7 @@
 
         <menuitem id="om_account_followup_main_menu"
                   parent="account.menu_finance_configuration"
-                  name="Follow-up"/>
+                  name="Follow-up" active="False"/>
 
         <menuitem id="om_account_followup_menu"
                   name="Follow-up Levels"
@@ -204,7 +204,7 @@
 
         <menuitem id="om_account_followup_main_menu"
                   parent="account.menu_finance_configuration"
-                  name="Follow-up"/>
+                  name="Follow-up" active="False"/>
 
         <menuitem id="om_account_followup_menu"
                   name="Follow-up Levels"

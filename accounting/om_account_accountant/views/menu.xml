@@ -2,6 +2,11 @@
 <odoo>
 
     <menuitem id="account.menu_finance" name="Accounting"/>
+    <menuitem id="account.menu_action_analytic_lines_tree" active="False"/>
+    <menuitem id="account.menu_action_analytic_reporting" active="False"/>
+    <menuitem id="account.menu_action_account_journal_group_list" active="False"/>
+    <menuitem id="account.menu_analytic_accounting" active="False"/>
+
 
     <menuitem id="menu_account_templates"
               sequence="100"

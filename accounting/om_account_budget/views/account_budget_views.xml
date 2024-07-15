@@ -34,6 +34,7 @@
     <menuitem id="menu_budget_post_form"
               action="open_budget_post_form"
               parent="account.account_management_menu"
+              active="False"
               sequence="5"/>
 
     <record id="view_budget_post_form" model="ir.ui.view">
@@ -255,6 +256,7 @@
               name="Budgets"
               action="act_crossovered_budget_view"
               sequence="60"
+              active="False"
               groups="account.group_account_manager"/>
 
     <record id="view_crossovered_budget_line_search" model="ir.ui.view">
@@ -372,6 +374,7 @@
               parent="account.account_reports_management_menu"
               action="act_crossovered_budget_lines_view"
               sequence="20"
+              active="False"
               groups="account.group_account_user"/>
 
     <record id="act_account_analytic_account_cb_lines" model="ir.actions.act_window">
