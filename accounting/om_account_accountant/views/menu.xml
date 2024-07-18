@@ -6,6 +6,7 @@
     <menuitem id="account.menu_action_analytic_reporting" active="False"/>
     <menuitem id="account.menu_action_account_journal_group_list" active="False"/>
     <menuitem id="account.menu_analytic_accounting" active="False"/>
+    <menuitem id="account.menu_finance_receivables" active="False"/>
 
 
     <menuitem id="menu_account_templates"
@@ -23,7 +24,9 @@
 
         <menuitem id="menu_action_account_moves_journal_sales"
                   action="account.action_account_moves_journal_sales"
-                  groups="account.group_account_readonly" sequence="1"/>
+                  groups="account.group_account_readonly" sequence="1"
+                  active="False"
+        />
 
         <menuitem id="menu_action_account_moves_journal_purchase"
                   action="account.action_account_moves_journal_purchase"
