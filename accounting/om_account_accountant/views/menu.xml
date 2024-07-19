@@ -6,7 +6,7 @@
     <menuitem id="account.menu_action_analytic_reporting" active="False"/>
     <menuitem id="account.menu_action_account_journal_group_list" active="False"/>
     <menuitem id="account.menu_analytic_accounting" active="False"/>
-    <menuitem id="account.menu_finance_receivables" active="False"/>
+    <menuitem id="accounting_pdf_reports.menu_aged_receivable" active="False"/>
 
 
     <menuitem id="menu_account_templates"
