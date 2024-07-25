@@ -90,7 +90,7 @@ class InventoryConsumptionRequest(models.Model):
             if rec.qty_demand > rec.qty_available:
                 raise ValidationError(_('Demand Quantity %(product_name)s is Greater than Available Quantity',
                                         product_name=rec.product_id.name))
-        mail_server = self.env['ir.mail_server'].search([], limit=1)
+        mail_server = self.sudo().env['ir.mail_server'].search([], limit=1)
         for rec in self:
             users = self.env['res.users'].search(
                 [('groups_id', 'in', [self.env.ref('ct_inventory_consumption.group_manager').id])])
