@@ -38,10 +38,10 @@
                     <attribute name="invisible">1</attribute>
                 </xpath>-->
 
-                <xpath expr="//div[@name='pricing']" position="replace">
+                <!--<xpath expr="//div[@name='pricing']" position="replace">
                     <label for="list_price"/>
                     <field name="list_price" invisible="1"/>
-                </xpath>
+                </xpath>-->
 
                 <xpath expr="//group[@name='group_standard_price']//button" position="attributes">
                     <attribute name="invisible">1</attribute>

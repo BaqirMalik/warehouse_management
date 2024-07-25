@@ -46,7 +46,6 @@
               sequence="10"
               action="action_account_aged_balance_view"
               parent="menu_finance_partner_reports"
-              active="False"
     />
 
     <record id="action_account_aged_receivable" model="ir.actions.act_window">
@@ -65,7 +64,6 @@
               sequence="20"
               action="action_account_aged_receivable"
               parent="menu_finance_partner_reports"
-              active="False"
     />
 
 
@@ -85,7 +83,6 @@
               sequence="30"
               action="action_account_aged_payable"
               parent="menu_finance_partner_reports"
-              active="False"
     />
 
 </odoo>

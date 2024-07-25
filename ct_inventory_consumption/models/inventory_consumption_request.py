@@ -164,7 +164,7 @@ class InventoryConsumptionRequest(models.Model):
         if vals.get('reference', _('New')) == _('New'):
             vals['reference'] = self.env['ir.sequence'].next_by_code('inventory.consumption.request') or _('New')
         record = super().create(vals)
-        base_url = self.env['ir.config_parameter'].get_param('web.base.url')
+        base_url = self.sudo().env['ir.config_parameter'].get_param('web.base.url')
         redirect_link = '%s/web#id=%d&view_type=form&model=%s' % (base_url, record.id, record._name)
         record.write({'redirect_link': redirect_link})
         return record

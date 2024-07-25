@@ -6,15 +6,8 @@
     <menuitem id="account.menu_action_analytic_reporting" active="False"/>
     <menuitem id="account.menu_action_account_journal_group_list" active="False"/>
     <menuitem id="account.menu_analytic_accounting" active="False"/>
-    <menuitem id="accounting_pdf_reports.menu_aged_receivable" active="False"/>
-
-
-    <menuitem id="menu_account_templates"
-              sequence="100"
-              name="Templates"
-              parent="account.menu_finance_configuration"
-              groups="base.group_no_one"/>
-
+<!--<menuitem id="accounting_pdf_reports.menu_aged_receivable" active="False"/>-->
+    <menuitem id="menu_account_templates" sequence="100" name="Templates" parent="account.menu_finance_configuration" groups="base.group_no_one"/>
     <record id="account.menu_action_account_moves_all" model="ir.ui.menu">
         <field name="groups_id" eval="[(5,0,0)]" />
     </record>
