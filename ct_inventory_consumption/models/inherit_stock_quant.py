@@ -58,6 +58,12 @@ class InheritStockQuant(models.Model):
                 consumption_request = self.env['inventory.consumption.request'].sudo().search(
                     [('id', '=', consumption_request_id)])
                 consumption_request.status = 'approved'
+                return {
+                    'effect': {
+                    'type': 'rainbow_man',
+                    'message': _("Consumption Request Approved Successfully!"),
+                    }
+                }
         else:
             print("No active ID found in the context")
         res = super(InheritStockQuant, self).action_apply_inventory()
