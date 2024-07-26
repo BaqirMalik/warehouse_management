@@ -70,11 +70,11 @@
                         <group>
                             <group>
                                 <field name="status" invisible="1"/>
-                                <field name="requester_id" readonly="status == 'pending'"/>
+                                <field name="requester_id" readonly="status == 'pending' or status == 'approved'"/>
 
                             </group>
                             <group>
-                                <field name="date"/>
+                                <field name="date" readonly="status == 'pending' or status == 'approved'"/>
                                 <field name="redirect_link" invisible="1"/>
                             </group>
                         </group>

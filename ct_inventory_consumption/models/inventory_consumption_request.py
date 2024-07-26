@@ -82,10 +82,12 @@ class InventoryConsumptionRequest(models.Model):
         if not self.Inventory_consumption_request_lines:
             raise ValidationError(_('Please Add Line Before Requesting'))
         for rec in self.Inventory_consumption_request_lines:
+            if rec.qty_available == 0:
+                raise ValidationError(_('Quantity of %(product_name)s is Not Avaialable in Store',
+                                        product_name=rec.product_id.name))
             if rec.qty_demand == 0:
                 raise ValidationError(_('Demand Quantity of %(product_name)s is 0\n'
-                                        'Please Add Some Quanitity'
-                                        ,
+                                        'Please Add Some Quanitity',
                                         product_name=rec.product_id.name))
             if rec.qty_demand > rec.qty_available:
                 raise ValidationError(_('Demand Quantity %(product_name)s is Greater than Available Quantity',
