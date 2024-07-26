@@ -108,7 +108,9 @@
                     <field name="date"/>
                     <group expand="0" string="Group By">
                         <filter string="Date" name="date" date="date"/>
-                        <filter string="status" name="groupby_status" domain="[]"
+                        <filter string="Requested By" name="groupby_requester_id" domain="[]"
+                                context="{'group_by':'requester_id'}"/>
+                        <filter string="Status" name="groupby_status" domain="[]"
                                 context="{'group_by':'status'}"/>
                     </group>
                 </search>
