@@ -6,6 +6,7 @@
         This Application Is developed to Customize the HR Module in Odoo17.
     """,
     'author': "Crecentech",
+    'license': 'LGPL-3',
     'website': "https://crecentech.com/",
     'category': 'Uncategorized',
     'version': '0.1',

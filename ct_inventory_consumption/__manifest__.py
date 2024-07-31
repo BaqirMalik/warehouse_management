@@ -8,6 +8,7 @@
         Sales and deduct it from Inventory cost at specific warehouse or location.
     """,
     'author': "Crecentech",
+    'license': 'LGPL-3',
     'website': "https://crecentech.com/",
     'category': 'Uncategorized',
     'version': '0.1',
@@ -25,10 +26,10 @@
         'views/inherit_new_quantity_wizard.xml',
         'views/menus.xml',
     ],
-'assets': {
-        'web.assets_backend': [
-            'ct_inventory_consumption/static/src/scss/inventory_consumption_requests.scss',
-        ],
-}
+    'assets': {
+            'web.assets_backend': [
+                'ct_inventory_consumption/static/src/scss/inventory_consumption_requests.scss',
+            ],
+    }
 }
 

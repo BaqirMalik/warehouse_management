@@ -9,6 +9,7 @@ Long description of module's purpose
     """,
 
     'author': "My Company",
+    'license': 'LGPL-3',
     'website': "https://www.yourcompany.com",
     'category': 'Uncategorized',
     'version': '0.1',
