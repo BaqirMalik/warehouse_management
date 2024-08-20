@@ -170,10 +170,3 @@ class InventoryConsumptionRequest(models.Model):
         redirect_link = '%s/web#id=%d&view_type=form&model=%s' % (base_url, record.id, record._name)
         record.write({'redirect_link': redirect_link})
         return record
-
-
-    def action_generate_sequence_numbers(self):
-        for record in self:
-            if record.reference == 'New':
-                new_reference = self.env['ir.sequence'].next_by_code('inventory.consumption.request') or _('New')
-                record.write({'reference': new_reference})
