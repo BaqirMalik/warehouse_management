@@ -6,18 +6,19 @@ from odoo.exceptions import RedirectWarning, ValidationError
 
 class InventoryConsumptionRequest(models.Model):
     _name = 'inventory.consumption.request'
+    _inherit = ['mail.thread']
     _description = 'Inventory Consumption Request'
     _rec_name = "reference"
 
     reference = fields.Char(string='Reference', required=True, copy=False, readonly=True, index=True,
                             default=lambda self: _('New'))
 
-    requester_id = fields.Many2one('res.users', string='Requester', default=lambda self: self.env.user, required=True)
+    requester_id = fields.Many2one('res.users', string='Requester', default=lambda self: self.env.user, required=True, tracking=True)
     Inventory_consumption_request_lines = fields.One2many('inventory.consumption.request.lines',
                                                           "consumption_request_id", string='Request Consumption Lines',
                                                           required=True)
 
-    date = fields.Datetime('Date', required=True, default=fields.Datetime.now)
+    date = fields.Datetime('Date', required=True, default=fields.Datetime.now, tracking=True)
 
     status = fields.Selection([('draft', 'Draft'), ('pending', 'Pending Approval'), ('approved', 'Approved'),
                                ('cancelled', 'Cancelled')], string='Status',

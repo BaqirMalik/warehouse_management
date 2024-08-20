@@ -59,7 +59,8 @@
                         <group>
                             <group>
                                 <field name="status" invisible="1"/>
-                                <field name="requester_id" readonly="status == 'pending' or status == 'approved'"/>
+<!--                                <field name="requester_id" readonly="status == 'pending' or status == 'approved'"/>-->
+                                <field name="requester_id" readonly="True"/>
 
                             </group>
                             <group>
@@ -82,6 +83,10 @@
                             </page>
                         </notebook>
                     </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids"/>
+                        <field name="message_ids"/>
+                    </div>
                 </form>
             </field>
         </record>
