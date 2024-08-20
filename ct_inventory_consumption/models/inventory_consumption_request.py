@@ -17,7 +17,7 @@ class InventoryConsumptionRequest(models.Model):
                                                           "consumption_request_id", string='Request Consumption Lines',
                                                           required=True)
 
-    date = fields.Datetime('Date', required=True, default=fields.Date.today)
+    date = fields.Datetime('Date', required=True, default=fields.Datetime.now)
 
     status = fields.Selection([('draft', 'Draft'), ('pending', 'Pending Approval'), ('approved', 'Approved'),
                                ('cancelled', 'Cancelled')], string='Status',

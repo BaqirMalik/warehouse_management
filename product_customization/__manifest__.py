@@ -7,9 +7,13 @@
     'website': "https://crecentech.com",
     'category': 'Uncategorized',
     'version': '0.1',
-    'depends': ['product','account'],
+    'depends': ['product', 'account', 'point_of_sale'],
     'data': [
         'views/product_form_inherit.xml',
     ],
+    'assets': {
+        'point_of_sale._assets_pos': [
+            'product_customization/static/src/**/*',
+    ],
+    },
 }
-

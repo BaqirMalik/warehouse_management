@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+   <t t-name="product_customization.OrderReceipt"
+      t-inherit="point_of_sale.ReceiptHeader" t-inherit-mode="extension">
+       <xpath expr="//span[hasclass('fs-2')]" position="before">
+            <span class="fs-2">Receipt#</span>
+       </xpath>
+
+   </t>
+</templates>

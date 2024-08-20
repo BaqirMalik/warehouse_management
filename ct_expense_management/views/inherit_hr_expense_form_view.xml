@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="hr_expense_view_form_inherit_crecentech" model="ir.ui.view">
+        <field name="name">hr.expense.view.form.inherit.crecentech</field>
+        <field name="model">hr.expense</field>
+        <field name="inherit_id" ref="hr_expense.hr_expense_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='tax_ids']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//div[@class='o_row']//field[@name='tax_amount']" position="replace"/>
+        </field>
+
+    </record>
+
+
+    <record id="hr_expense_sheet_view_form_inherit_crecentech" model="ir.ui.view">
+        <field name="name">hr.expense.sheet.view.form.inherit.crecentech</field>
+        <field name="model">hr.expense.sheet</field>
+        <field name="inherit_id" ref="hr_expense.view_hr_expense_sheet_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='employee_journal_id']" position="after">
+                <field name="redirect_link" invisible="1"/>
+            </xpath>
+            <xpath expr="//field[@name='expense_line_ids']//field[@name='analytic_distribution']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="hr_expense.menu_hr_expense_root" model="ir.ui.menu">
+        <field name="groups_id" eval="[(4, ref('hr_expense.group_hr_expense_manager')),
+        (4, ref('hr_expense.group_hr_expense_user')),
+        (4, ref('hr_expense.group_hr_expense_team_approver')),
+        ]"/>
+    </record>
+
+</odoo>

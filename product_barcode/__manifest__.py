@@ -30,7 +30,7 @@
     'company': 'Cybrosys Techno Solutions',
     'maintainer': 'Cybrosys Techno Solutions',
     'website': 'https://www.cybrosys.com',
-    'depends': ['purchase'],
+    'depends': ['base','purchase'],
     'images': ['static/description/banner.png'],
     'data': [
         'data/product_barcode_generator.xml',
