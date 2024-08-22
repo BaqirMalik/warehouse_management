@@ -9,6 +9,8 @@ class InventoryConsumptionRequest(models.Model):
     _inherit = ['mail.thread']
     _description = 'Inventory Consumption Request'
     _rec_name = "reference"
+    _order = "id desc"
+
 
     reference = fields.Char(string='Reference', required=True, copy=False, readonly=True, index=True,
                             default=lambda self: _('New'))
