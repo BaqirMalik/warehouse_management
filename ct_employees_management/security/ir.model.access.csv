@@ -1,0 +1,9 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_employee_assets,employee.assets,model_employee_assets,,1,1,1,1
+access_employee_pf,employee.employee.pf,model_employee_pf,,1,1,1,1
+access_employee_assets_lines,employee.assets.lines,model_employee_assets_lines,,1,1,1,1
+access_employee_assets_history,employee.assets.history,model_employee_assets_history,,1,1,1,1
+
+access_laptop_core,laptop.core,model_laptop_core,,1,1,1,1
+access_laptop_generation,laptop.generation,model_laptop_generation,,1,1,1,1
+access_provident_fund_contribution,provident.fund.contribution,model_provident_fund_contribution,,1,1,1,1

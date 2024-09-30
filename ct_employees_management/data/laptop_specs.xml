@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="laptop_core_i3_data" model="laptop.core">
+        <field name="name">Core i3</field>
+        <field name="code">i3</field>
+    </record>
+
+    <record id="laptop_core_i5_data" model="laptop.core">
+        <field name="name">Core i5</field>
+        <field name="code">i5</field>
+    </record>
+
+    <record id="laptop_core_i7_data" model="laptop.core">
+        <field name="name">Core i7</field>
+        <field name="code">i7</field>
+    </record>
+
+    <record id="laptop_generation_4th_data" model="laptop.generation">
+        <field name="name">4th Generation</field>
+        <field name="code">4th</field>
+    </record>
+
+    <record id="laptop_generation_5th_data" model="laptop.generation">
+        <field name="name">5th Generation</field>
+        <field name="code">5th</field>
+    </record>
+
+    <record id="laptop_generation_6th_data" model="laptop.generation">
+        <field name="name">6th Generation</field>
+        <field name="code">6th</field>
+    </record>
+
+
+</odoo>

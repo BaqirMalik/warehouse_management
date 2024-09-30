@@ -1,0 +1,14 @@
+<odoo>
+    <record id="ir_cron_provident_funds_management" model="ir.cron">
+        <field name="name">Provident Fund Management</field>
+        <field name="model_id" ref="model_employee_pf"/>
+        <field name="state">code</field>
+        <field name="code">model.update_provident_fund()</field>
+        <field name="interval_number">1</field>
+        <field name="interval_type">months</field>
+        <field name="numbercall">-1</field>
+        <field name="active" eval="True"/>
+        <field name="nextcall" eval="(datetime.now() + relativedelta(day=11, hours=0, minutes=0)).strftime('%Y-%m-%d %H:%M:%S')"/>
+    </record>
+
+</odoo>

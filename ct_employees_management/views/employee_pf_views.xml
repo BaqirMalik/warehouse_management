@@ -1,0 +1,39 @@
+<odoo>
+    <record id="view_employee_pf_tree" model="ir.ui.view">
+        <field name="name">employee.pf.tree</field>
+        <field name="model">employee.pf</field>
+        <field name="arch" type="xml">
+            <tree create="0">
+                <field name="employee_id" width="25%"/>
+                <field name="contribution_date" width="25%" widget="date"/>
+                <field name="employee_contribution_amount" sum="Total" width="25%"/>
+                <field name="company_contribution_amount" sum="Total" width="25%"/>
+                <field name="total_contribution" sum="Total" width="25%"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_employee_pf_form" model="ir.ui.view">
+        <field name="name">employee.pf.form</field>
+        <field name="model">employee.pf</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="employee_id" width="25%"/>
+                        <field name="contribution_date" width="25%" widget="date"/>
+                        <field name="employee_contribution_amount" sum="Total" width="25%"/>
+                        <field name="company_contribution_amount" sum="Total" width="25%"/>
+                        <field name="total_contribution" sum="Total" width="25%"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_employee_pf" model="ir.actions.act_window">
+        <field name="name">Employee Provident Fund</field>
+        <field name="res_model">employee.pf</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+</odoo>

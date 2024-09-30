@@ -10,7 +10,7 @@
     'author': "Crecentech",
     'license': 'LGPL-3',
     'website': "https://crecentech.com/",
-    'category': 'Uncategorized',
+    'category': 'inventory',
     'version': '0.1',
     'depends': ['stock','product','account','purchase'],
     'data': [

@@ -1,0 +1,165 @@
+<odoo>
+
+    <record id="view_employee_assets_form" model="ir.ui.view">
+        <field name="name">view.employee.assets.form</field>
+        <field name="model">employee.assets</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="action_ready" type="object" string="Ready" class="oe_highlight"
+                            invisible="state in ['assigned','ready']"/>
+                    <!--<button name="action_assigned" type="object" string="Assigned" class="oe_highlight"
+                            invisible="state in ['assigned','draft','returned']"/>-->
+                    <button name="action_assigned" type="object" string="Assigned" class="oe_highlight"
+                            invisible="1"/>
+                    <button name="action_returned" type="object" string="Returned" class="oe_highlight"
+                            invisible="state in ['returned','ready','draft']"/>
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <field name="image" widget='image' class="oe_avatar"/>
+                    <div class="oe_title" style="margin-bottom:40px;">
+                        <field name="sequence" style="padding-left:6px;"/>
+                        <h1>
+                            <field name="name" placeholder="Asset Name"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="status"/>
+                        </group>
+                        <group>
+                            <field name="employee_id" widget="many2one_avatar_employee" invisible="1"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Accessories">
+                            <group>
+                                <field name="charger"/>
+                                <field name="mouse"/>
+                                <field name="mouse_brand" invisible="mouse != True" required="True"/>
+                                <field name="headphone"/>
+                                <field name="headphone_brand" invisible="headphone != True" required="True"/>
+                                <field name="headphone_issue_date" invisible="headphone != True" required="True"/>
+                            </group>
+                        </page>
+                        <page string="Specification">
+                            <group>
+                                <field name="core"/>
+                                <field name="generation"/>
+                                <field name="ram"/>
+                                <field name="rom"/>
+                                <field name="is_graphic_card"/>
+                                <field name="graphic_card" invisible="is_graphic_card != True" required="True"/>
+                            </group>
+                        </page>
+                        <page name="assets_lines" string="Repair/Accessories History">
+                            <field name="assets_lines">
+                                <tree editable="bottom">
+                                    <field name="employee_id" width="25%" required="True"/>
+                                    <field name="date" width="25%" required="True"/>
+                                    <field name="notes" width="25%"/>
+                                    <field name="expense_amount" width="25%" sum="Total"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_employee_assets_tree" model="ir.ui.view">
+        <field name="name">view.employee.assets.tree</field>
+        <field name="model">employee.assets</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="core"/>
+                <field name="generation"/>
+                <field name="mouse"/>
+                <field name="charger"/>
+                <field name="headphone"/>
+                <field name="is_graphic_card"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_employee_assets_kanban" model="ir.ui.view">
+        <field name="name">view.employee.assets.kanban</field>
+        <field name="model">employee.assets</field>
+        <field name="arch" type="xml">
+            <kanban>
+                <field name="image"/>
+                <field name="name"/>
+                <field name="employee_id"/>
+                <template>
+                    <t t-name="kanban-box">
+                        <div class="oe_kanban_global_click">
+                            <div class="o_kanban_image me-1">
+                                <img t-att-src="kanban_image('employee.assets', 'image', record.id.raw_value)"
+                                     alt="Product" class="o_image_64_contain"/>
+                            </div>
+                            <div class="oe_kanban_details">
+                                <ul>
+                                    <li>
+                                        <field name="name"/>
+                                    </li>
+                                    <li>
+                                        <field name="employee_id" widget="many2one_avatar_employee"
+                                               options="{'display_avatar_name':True}"/>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="oe_kanban_bottom_right">
+                                <field name="status" class="kanban_badge" widget="label_selection"
+                                       options="{'classes': {'active': 'info', 'inactive': 'danger'}}"/>
+                            </div>
+                        </div>
+                    </t>
+                </template>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="view_employee_assets_search" model="ir.ui.view">
+        <field name="name">view.employee.assets.search</field>
+        <field name="model">employee.assets</field>
+        <field name="arch" type="xml">
+            <search string="Employee Assets">
+                <field name="name"/>
+                <field name="employee_id"/>
+                <separator/>
+                <filter name="active" string="Active" domain="[('status', '=', 'active')]"/>
+                <filter name="inactive" string="In-active" domain="[('status', '=', 'inactive')]"/>
+                <filter name="is_graphic_card" string="Graphic Card" domain="[('is_graphic_card', '=', True)]"/>
+                <group expand="1" string="Group By">
+                    <filter name="employee_id" string="Employee ID" context="{'group_by':'employee_id'}"/>
+                    <filter name="status" string="Status" context="{'group_by':'status'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+
+    <record id="view_employee_assets_action_new" model="ir.actions.act_window">
+        <field name="name">Employee Assets</field>
+        <field name="res_model">employee.assets</field>
+        <field name="view_mode">tree,form,kanban</field>
+        <field name="view_id" ref="view_employee_assets_tree"/>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">
+                Click to Create a New Assets.
+            </p>
+        </field>
+    </record>
+
+
+    <menuitem id="employee_assets_root"
+              name="Assets"
+              action="view_employee_assets_action_new"
+              parent="hr.menu_hr_employee_payroll"
+              sequence="10"
+              groups="hr.group_hr_manager,hr.group_hr_user"
+    />
+</odoo>
