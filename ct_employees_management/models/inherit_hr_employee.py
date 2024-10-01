@@ -5,7 +5,7 @@ from odoo import models, fields, api, _
 class InheritHrEmployee(models.Model):
     _inherit = 'hr.employee'
 
-    employee_assets = fields.Many2one('employee.assets', string="Employee Asset", required=True)
+    employee_assets = fields.Many2one('employee.assets', string="Employee Asset")
     provident_fund_ids = fields.One2many('employee.pf','employee_id', string='Provident Funds')
 
     employee_assets_history_ids = fields.One2many('employee.assets.history','employee_id', string='Employee Assets History')
