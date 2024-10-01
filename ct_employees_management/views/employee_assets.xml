@@ -39,12 +39,12 @@
                                 <field name="charger"/>
                                 <field name="mouse"/>
                                 <field name="keyboard"/>
-                                <field name="mouse_brand" invisible="mouse != True" required="True"/>
+                                <field name="mouse_brand" invisible="mouse != True"/>
                                 <field name="lcd"/>
-                                <field name="lcd_brand" invisible="lcd != True" required="True"/>
+                                <field name="lcd_brand" invisible="lcd != True"/>
                                 <field name="headphone"/>
-                                <field name="headphone_brand" invisible="headphone != True" required="True"/>
-                                <field name="headphone_issue_date" invisible="headphone != True" required="True"/>
+                                <field name="headphone_brand" invisible="headphone != True"/>
+                                <field name="headphone_issue_date" invisible="headphone != True"/>
                             </group>
                         </page>
                         <page string="Specification">
@@ -54,7 +54,7 @@
                                 <field name="ram"/>
                                 <field name="rom"/>
                                 <field name="is_graphic_card"/>
-                                <field name="graphic_card" invisible="is_graphic_card != True" required="True"/>
+                                <field name="graphic_card" invisible="is_graphic_card != True"/>
                             </group>
                         </page>
                         <page name="assets_lines" string="Repair/Accessories History">
