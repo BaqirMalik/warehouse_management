@@ -38,8 +38,8 @@
                             <group>
                                 <field name="charger"/>
                                 <field name="mouse"/>
-                                <field name="keyboard"/>
                                 <field name="mouse_brand" invisible="mouse != True"/>
+                                <field name="keyboard"/>
                                 <field name="lcd"/>
                                 <field name="lcd_brand" invisible="lcd != True"/>
                                 <field name="headphone"/>
