@@ -27,6 +27,7 @@
                     <group>
                         <group>
                             <field name="status"/>
+                            <field name="battery_health"/>
                         </group>
                         <group>
                             <field name="employee_id" widget="many2one_avatar_employee" invisible="1"/>
@@ -37,7 +38,10 @@
                             <group>
                                 <field name="charger"/>
                                 <field name="mouse"/>
+                                <field name="keyboard"/>
                                 <field name="mouse_brand" invisible="mouse != True" required="True"/>
+                                <field name="lcd"/>
+                                <field name="lcd_brand" invisible="lcd != True" required="True"/>
                                 <field name="headphone"/>
                                 <field name="headphone_brand" invisible="headphone != True" required="True"/>
                                 <field name="headphone_issue_date" invisible="headphone != True" required="True"/>
@@ -62,6 +66,12 @@
                                     <field name="expense_amount" width="25%" sum="Total"/>
                                 </tree>
                             </field>
+                        </page>
+                        <page name="any_hardware_issue" string="Any Hardware Issue">
+                                <field name="any_hardware_issue"/>
+                        </page>
+                        <page name="other_notes" string="Other Notes">
+                                <field name="other_notes"/>
                         </page>
                     </notebook>
                 </sheet>

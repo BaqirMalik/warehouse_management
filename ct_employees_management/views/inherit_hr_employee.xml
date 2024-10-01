@@ -17,6 +17,12 @@
         <field name="model">hr.employee</field>
         <field name="inherit_id" ref="hr.view_employee_form"/>
         <field name="arch" type="xml">
+            <xpath expr="//field[@name='job_title']" position="before">
+                <group>
+                    <field name="pseudo_name"/>
+                    <field name="joining_date"/>
+                </group>
+            </xpath>
             <xpath expr="//notebook//page[@name='personal_information']" position="after">
                 <page name="employee_assets" string="Employee Assets">
                     <group>

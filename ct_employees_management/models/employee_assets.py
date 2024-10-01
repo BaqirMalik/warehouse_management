@@ -22,6 +22,9 @@ class EmployeeAssets(models.Model):
     ], default='draft', tracking=True)
     mouse = fields.Boolean(string='Mouse')
     mouse_brand = fields.Char(string='Mouse Detail')
+    keyboard = fields.Boolean(string='Keyboard')
+    lcd = fields.Boolean(string='LCD Display')
+    lcd_brand = fields.Char(string='LCD Detail')
     charger = fields.Boolean(string='Charger')
     headphone = fields.Boolean(string='HeadPhone', tracking=True)
     headphone_brand = fields.Char(string='HeadPhone Detail', tracking=True)
@@ -29,7 +32,7 @@ class EmployeeAssets(models.Model):
     core = fields.Many2one('laptop.core',string='Core')
     generation = fields.Many2one('laptop.generation',string='Generation')
     ram = fields.Char(string='RAM')
-    rom = fields.Char(string='ROM')
+    rom = fields.Char(string='ROM / SSD / HDD')
     is_graphic_card = fields.Boolean(string='Is Graphic Card?')
     graphic_card = fields.Char(string='Graphic Card')
     assets_lines = fields.One2many('employee.assets.lines', 'assets_id')
@@ -38,6 +41,9 @@ class EmployeeAssets(models.Model):
                             default=lambda self: _('New'))
 
     display_name = fields.Char(compute='_compute_display_name')
+    battery_health = fields.Char("Battery Health")
+    other_notes = fields.Text("Other Notes")
+    any_hardware_issue = fields.Text("Any Hardware Issue")
 
     @api.depends('name','display_name')  # this definition is recursive
     def _compute_display_name(self):
