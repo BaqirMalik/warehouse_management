@@ -10,7 +10,7 @@ class InheritHrEmployee(models.Model):
 
     employee_assets_history_ids = fields.One2many('employee.assets.history','employee_id', string='Employee Assets History')
     pseudo_name = fields.Char("Pseudo Name")
-    joining_date = fields.Date(string="DOJ", required=True, help="Joining Date")
+    joining_date = fields.Date(string="DOJ", help="Joining Date")
     def create(self, vals):
         res = super(InheritHrEmployee, self).create(vals)
         asset_id = vals.get('employee_assets')
