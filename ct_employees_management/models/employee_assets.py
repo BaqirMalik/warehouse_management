@@ -9,43 +9,43 @@ class EmployeeAssets(models.Model):
     _inherit = ['mail.thread', 'mail.activity.mixin']
 
 
-    name = fields.Char('Asset Name', required=True)
+    name = fields.Char('Asset Name', required=True, tracking=True)
     image = fields.Binary("Image")
     employee_id = fields.Many2one('hr.employee', string='Employee', tracking=True)
     status = fields.Selection([
         ('active', 'Active'),
         ('inactive', 'In active')
-    ], string='Status', required=True)
+    ], string='Status', required=True, tracking=True)
     state = fields.Selection([
         ('draft', 'Draft'),
         ('ready', 'Ready'),
         ('assigned', 'Assigned'),
         ('returned', 'Returned')
     ], default='draft', tracking=True)
-    mouse = fields.Boolean(string='Mouse')
-    mouse_brand = fields.Char(string='Mouse Detail')
-    keyboard = fields.Boolean(string='Keyboard')
-    lcd = fields.Boolean(string='LCD Display')
-    lcd_brand = fields.Char(string='LCD Detail')
-    charger = fields.Boolean(string='Charger')
+    mouse = fields.Boolean(string='Mouse', tracking=True)
+    mouse_brand = fields.Char(string='Mouse Detail', tracking=True)
+    keyboard = fields.Boolean(string='Keyboard', tracking=True)
+    lcd = fields.Boolean(string='LCD Display', tracking=True)
+    lcd_brand = fields.Char(string='LCD Detail', tracking=True)
+    charger = fields.Boolean(string='Charger', tracking=True)
     headphone = fields.Boolean(string='HeadPhone', tracking=True)
     headphone_brand = fields.Char(string='HeadPhone Detail', tracking=True)
     headphone_issue_date = fields.Date(string='HeadPhone Issue Date', tracking=True)
-    core = fields.Many2one('laptop.core',string='Core')
-    generation = fields.Many2one('laptop.generation',string='Generation')
-    ram = fields.Char(string='RAM')
-    rom = fields.Char(string='ROM / SSD / HDD')
-    is_graphic_card = fields.Boolean(string='Is Graphic Card?')
-    graphic_card = fields.Char(string='Graphic Card')
+    core = fields.Many2one('laptop.core',string='Core', tracking=True)
+    generation = fields.Many2one('laptop.generation',string='Generation', tracking=True)
+    ram = fields.Char(string='RAM', tracking=True)
+    rom = fields.Char(string='ROM / SSD / HDD', tracking=True)
+    is_graphic_card = fields.Boolean(string='Is Graphic Card?', tracking=True)
+    graphic_card = fields.Char(string='Graphic Card', tracking=True)
     assets_lines = fields.One2many('employee.assets.lines', 'assets_id', tracking=True)
 
     sequence = fields.Char(string='Sequence', required=True, copy=False, readonly=True, index=True,
                             default=lambda self: _('New'))
 
     display_name = fields.Char(compute='_compute_display_name')
-    battery_health = fields.Char("Battery Health")
-    other_notes = fields.Text("Other Notes")
-    any_hardware_issue = fields.Text("Any Hardware Issue")
+    battery_health = fields.Char("Battery Health", tracking=True)
+    other_notes = fields.Text("Other Notes", tracking=True)
+    any_hardware_issue = fields.Text("Any Hardware Issue", tracking=True)
 
     @api.depends('name','display_name')  # this definition is recursive
     def _compute_display_name(self):
