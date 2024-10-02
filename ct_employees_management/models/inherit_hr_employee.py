@@ -20,7 +20,7 @@ class InheritHrEmployee(models.Model):
                 'asset_id': asset_id,
                 'date': date.today()
             })
-            res.employee_assets.employee_id = self.id
+            res.employee_assets.employee_id = res.id
             res.employee_assets.state = 'assigned'
         return res
 

@@ -1,5 +1,23 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
+
+
+    <record id="hr_employee_view_search_inherit" model="ir.ui.view">
+        <field name="name">hr.employee.view.search.inherit.employee.management</field>
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr.view_employee_filter"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='parent_id']" position="before">
+                <field name="pseudo_name"/>
+            </xpath>
+            <xpath expr="//filter[@name='my_team']" position="before">
+                <filter name="joining_date" string="Joining Date" date="joining_date"/>
+                <separator/>
+            </xpath>
+        </field>
+    </record>
+
+
     <record id="inherit_hr_gamification_form" model="ir.ui.view">
         <field name="name">inherit.hr.employee</field>
         <field name="model">hr.employee</field>

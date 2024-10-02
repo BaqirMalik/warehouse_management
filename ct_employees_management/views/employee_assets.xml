@@ -57,6 +57,13 @@
                                 <field name="graphic_card" invisible="is_graphic_card != True"/>
                             </group>
                         </page>
+
+                        <page name="any_hardware_issue" string="Any Hardware Issue">
+                            <field name="any_hardware_issue"/>
+                        </page>
+                        <page name="other_notes" string="Other Notes">
+                            <field name="other_notes"/>
+                        </page>
                         <page name="assets_lines" string="Repair/Accessories History">
                             <field name="assets_lines">
                                 <tree editable="bottom">
@@ -66,12 +73,6 @@
                                     <field name="expense_amount" width="25%" sum="Total"/>
                                 </tree>
                             </field>
-                        </page>
-                        <page name="any_hardware_issue" string="Any Hardware Issue">
-                                <field name="any_hardware_issue"/>
-                        </page>
-                        <page name="other_notes" string="Other Notes">
-                                <field name="other_notes"/>
                         </page>
                     </notebook>
                 </sheet>
