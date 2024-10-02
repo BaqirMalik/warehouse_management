@@ -66,7 +66,7 @@
                         </page>
                         <page name="assets_lines" string="Repair/Accessories History">
                             <field name="assets_lines">
-                                <tree editable="bottom">
+                                <tree editable="bottom" delete="False">
                                     <field name="employee_id" width="25%" required="True"/>
                                     <field name="date" width="25%" required="True"/>
                                     <field name="notes" width="25%"/>
@@ -76,6 +76,12 @@
                         </page>
                     </notebook>
                 </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" groups="base.group_user"
+                           options="{'post_refresh': 'recipients'}"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
             </form>
         </field>
     </record>

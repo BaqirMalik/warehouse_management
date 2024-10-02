@@ -6,6 +6,8 @@ class EmployeeAssets(models.Model):
     _name = 'employee.assets'
     _description = 'employee assets'
     _rec_name = "sequence"
+    _inherit = ['mail.thread', 'mail.activity.mixin']
+
 
     name = fields.Char('Asset Name', required=True)
     image = fields.Binary("Image")
@@ -35,7 +37,7 @@ class EmployeeAssets(models.Model):
     rom = fields.Char(string='ROM / SSD / HDD')
     is_graphic_card = fields.Boolean(string='Is Graphic Card?')
     graphic_card = fields.Char(string='Graphic Card')
-    assets_lines = fields.One2many('employee.assets.lines', 'assets_id')
+    assets_lines = fields.One2many('employee.assets.lines', 'assets_id', tracking=True)
 
     sequence = fields.Char(string='Sequence', required=True, copy=False, readonly=True, index=True,
                             default=lambda self: _('New'))

@@ -24,7 +24,9 @@
               name="Provident Fund"
               parent="hr.menu_human_resources_configuration"
               groups="hr.group_hr_manager"
-              sequence = "300"/>
+              sequence = "300"
+              active="False"
+    />
 
     <menuitem id="provident_fund_menu"
               name="Provident Fund Setting"

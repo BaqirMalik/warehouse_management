@@ -5,12 +5,12 @@ from odoo import models, fields, api, _
 class InheritHrEmployee(models.Model):
     _inherit = 'hr.employee'
 
-    employee_assets = fields.Many2one('employee.assets', string="Employee Asset")
+    employee_assets = fields.Many2one('employee.assets', string="Employee Asset",tracking=True)
     provident_fund_ids = fields.One2many('employee.pf','employee_id', string='Provident Funds')
 
     employee_assets_history_ids = fields.One2many('employee.assets.history','employee_id', string='Employee Assets History')
-    pseudo_name = fields.Char("Pseudo Name")
-    joining_date = fields.Date(string="DOJ", help="Joining Date")
+    pseudo_name = fields.Char("Pseudo Name", tracking=True)
+    joining_date = fields.Date(string="DOJ", help="Joining Date", tracking=True)
     def create(self, vals):
         res = super(InheritHrEmployee, self).create(vals)
         asset_id = vals.get('employee_assets')
