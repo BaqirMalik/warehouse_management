@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="employee_email_template" model="mail.template">
+            <field name="name">Welcome New Employee</field>
+            <field name="model_id" ref="hr.model_hr_employee"/>
+            <field name="email_from">${object.company_id.email}</field>
+            <field name="email_to">${object.email}</field>
+            <field name="subject">A New Employee is Created</field>
+            <field name="body_html" type="html">
+                <div style="margin: 0px; padding: 0px;">
+                    <b>Dear IT Team,</b>
+                    <br/>
+                    <br/>
+                    We are excited to announce that we have a new employee joining our company.
+                    <br/>
+                    <br/>
+                    <b>Employee Name:</b>
+                    <span t-esc="object.name"/>
+                    <br/>
+                    <b>Employee Pseudo Name:</b>
+                    <span t-esc="object.pseudo_name"/>
+                    <br/>
+                    <b>Employee Joining Date:</b>
+                    <span t-esc="object.joining_date" t-options="{'widget': 'date', 'format': 'dd MMMM yyyy'}"/>
+                    <br/>
+
+                    <div style="margin-top: 20px;">
+                        <b>Action Required:</b>
+                        <p>
+                            Kindly configure and allocate assets to this employee by clicking the below button.
+                        </p>
+                    </div>
+                    <div style="margin-top:20px;">
+                        <a t-att-href="object.redirect_link"
+                           style="background-color: #0080e9; margin-top: 10px; padding: 20px; text-decoration: none; color: #fff; border-radius: 5px; font-size: 12px;">
+                            Click Here
+                        </a>
+                    </div>
+                    <br/>
+                    Thank you!
+                    <br/>
+                    Best regards,
+                    <br/>
+                    <t t-esc="user.env.company.name"/>
+                    <br/>
+                </div>
+            </field>
+        </record>
+    </data>
+</odoo>

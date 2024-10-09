@@ -177,6 +177,6 @@
               action="view_employee_assets_action_new"
               parent="hr.menu_hr_employee_payroll"
               sequence="10"
-              groups="hr.group_hr_manager,hr.group_hr_user"
+              groups="hr.group_hr_manager,ct_employees_management.group_hr_it_employee"
     />
 </odoo>

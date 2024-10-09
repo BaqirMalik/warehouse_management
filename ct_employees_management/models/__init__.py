@@ -6,3 +6,4 @@ from . import employee_pf
 from . import laptop_specs
 from . import provident_fund_contribution
 from . import employee_assets_history
+from . import inherit_hr_contract

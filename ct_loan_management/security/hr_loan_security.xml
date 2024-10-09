@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+
+        <!-- Multi-company rule on the 'hr_loan' model -->
+        <record id="hr_loan_rule_company" model="ir.rule">
+            <field name="name">Loan Request Multi Company</field>
+            <field name="model_id" ref="model_hr_loan"/>
+            <field eval="True" name="global"/>
+            <field name="domain_force">
+                ['|',('company_id','=',False),('company_id','child_of',[user.company_id.id])]
+            </field>
+        </record>
+
+
+        <!-- Rule allowing employees to modify their own loan records -->
+<!--        <record id="hr_loan_rule_manager" model="ir.rule">-->
+<!--            <field name="name">Manager: Modify All loan Request</field>-->
+<!--            <field name="model_id" ref="model_hr_loan"/>-->
+<!--            <field name="domain_force">[(1,'=',1)]-->
+<!--            </field>-->
+<!--            <field name="perm_read" eval="1"/>-->
+<!--            <field name="perm_write" eval="1"/>-->
+<!--            <field name="perm_create" eval="1"/>-->
+<!--            <field name="perm_unlink" eval="1"/>-->
+<!--            <field name="groups" eval="[(4,ref('hr.group_hr_manager')),(4,ref('account.group_account_manager'))]"/>-->
+<!--        </record>-->
+
+
+    <record id="hr_employee_rule_employee_manager" model="ir.rule">
+        <field name="name">All Employees</field>
+        <field name="model_id" ref="model_hr_employee"/>
+        <field name="domain_force">[(1,'=',1)]</field>
+        <field name="groups" eval="[(4, ref('hr.group_hr_manager'))]"/>
+    </record>
+
+
+        <record id="employee_loan_management" model="ir.module.category">
+            <field name="name">Loan &amp; Provident Fund Management</field>
+            <field name="sequence">1</field>
+        </record>
+        <record id="group_hr_loan_manager" model="res.groups">
+            <field name="name">Loan &amp; Provident Fund Manager</field>
+            <field name="category_id" ref="ct_loan_management.employee_loan_management"/>
+        </record>
+        <record id="group_hr_loan_user" model="res.groups">
+            <field name="name">Loan &amp; Provident Fund User</field>
+            <field name="category_id" ref="ct_loan_management.employee_loan_management"/>
+        </record>
+
+        <!--<record id="hr_loan_rule_employee_manager" model="ir.rule">
+            <field name="name">Manager: Modify All Employees loan</field>
+            <field name="model_id" ref="model_hr_loan"/>
+            <field name="domain_force">[(1,'=',1)]
+            </field>
+            <field name="perm_read" eval="1"/>
+            <field name="perm_write" eval="1"/>
+            <field name="perm_create" eval="1"/>
+            <field name="perm_unlink" eval="1"/>
+            <field name="groups" eval="[(4,ref('ct_loan_management.group_hr_loan_manager'))]"/>
+        </record>
+
+        <record id="hr_loan_rule_employee_user" model="ir.rule">
+            <field name="name">User: Modify his records</field>
+            <field name="model_id" ref="model_hr_loan"/>
+            <field name="domain_force">['|',('employee_id.user_id','=',user.id),('employee_id.user_id','=',False)]</field>
+            <field name="groups" eval="[(4, ref('ct_loan_management.group_hr_loan_user'))]"/>
+        </record>-->
+
+        <!--<record id="hr_fund_rule_employee_user" model="ir.rule">
+            <field name="name">User: Modify his funds</field>
+            <field name="model_id" ref="ct_employees_management.model_employee_pf"/>
+            <field name="domain_force">[('employee_id.user_id','=',user.id)]</field>
+            <field name="groups" eval="[(4, ref('ct_loan_management.group_hr_loan_user'))]"/>
+        </record>-->
+    </data>
+</odoo>
