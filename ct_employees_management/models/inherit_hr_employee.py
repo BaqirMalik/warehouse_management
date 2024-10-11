@@ -1,11 +1,13 @@
 from datetime import date
 
 from odoo import models, fields, api, _
+from odoo.exceptions import ValidationError
+
 
 class InheritHrEmployee(models.Model):
     _inherit = 'hr.employee'
 
-    employee_assets = fields.Many2one('employee.assets', string="Employee Asset",tracking=True)
+    employee_assets = fields.Many2one('employee.assets', string="Employee Asset",tracking=True, ondelete="restrict")
     provident_fund_ids = fields.One2many('employee.pf','employee_id', string='Provident Funds')
 
     employee_assets_history_ids = fields.One2many('employee.assets.history','employee_id', string='Employee Assets History')
@@ -43,11 +45,6 @@ class InheritHrEmployee(models.Model):
         res = super(InheritHrEmployee, self).write(vals)
         asset_id = vals.get('employee_assets')
         if asset_id:
-            previous_asset = self.env['employee.assets.history'].search([
-                ('employee_id', '=', self.id)
-            ], limit=1, order='id desc')
-            if len(previous_asset) > 0:
-                previous_asset.asset_id.state = 'ready'
             for employee in self:
                 self.env['employee.assets.history'].create({
                     'employee_id': employee.id,
@@ -56,5 +53,19 @@ class InheritHrEmployee(models.Model):
                 })
             self.employee_assets.employee_id = self.id
             self.employee_assets.state = 'assigned'
+        else:
+            previous_asset = self.env['employee.assets.history'].search([
+                ('employee_id', '=', self.id)
+            ], limit=1, order='id desc')
+            if previous_asset:
+                previous_asset.asset_id.state = 'ready'
         return res
+
+    def unlink(self):
+        for rec in self:
+            if not rec.employee_assets:
+                return super(InheritHrEmployee, self).unlink()
+            else:
+                raise ValidationError(_('You have to un-allocate the Employee Assets first'))
+
 

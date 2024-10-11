@@ -37,7 +37,7 @@ class EmployeePF(models.Model):
                 if contribution_config:
                     employee_salary = employee.contract_id.wage if employee.contract_id else 0
                     employee_contribution = (employee_salary * contribution_config.employee_contrib) / 100
-                    company_contribution = (employee_salary * contribution_config.company_contrib) / 100
+                    company_contribution = (employee_contribution * contribution_config.company_contrib) / 100
                     check_contribution = self.env['employee.pf'].search([
                         ('employee_id', '=', employee.id),
                         ('contribution_date', '=', current_date)
@@ -62,3 +62,6 @@ class EmployeePF(models.Model):
         for rec in self:
             raise UserError("Not allowed to Delete the Provident Fund")
         return super(EmployeePF, self).unlink()
+
+
+
