@@ -1,18 +1,20 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
-    <record id="provident_fund_first_year_data" model="provident.fund.contribution">
-        <field name="year">1st_year</field>
-        <field name="employee_contrib">10</field>
-        <field name="company_contrib">5</field>
-    </record>
-    <record id="provident_fund_second_year_data" model="provident.fund.contribution">
-        <field name="year">2nd_year</field>
-        <field name="employee_contrib">20</field>
-        <field name="company_contrib">10</field>
-    </record>
-    <record id="provident_fund_third_year_data" model="provident.fund.contribution">
-        <field name="year">3rd_year</field>
-        <field name="employee_contrib">30</field>
-        <field name="company_contrib">20</field>
-    </record>
+    <data noupdate="1">
+        <record id="provident_fund_first_year_data" model="provident.fund.contribution">
+            <field name="year">1st_year</field>
+            <field name="employee_contrib">10</field>
+            <field name="company_contrib">5</field>
+        </record>
+        <record id="provident_fund_second_year_data" model="provident.fund.contribution">
+            <field name="year">2nd_year</field>
+            <field name="employee_contrib">20</field>
+            <field name="company_contrib">10</field>
+        </record>
+        <record id="provident_fund_third_year_data" model="provident.fund.contribution">
+            <field name="year">3rd_year</field>
+            <field name="employee_contrib">30</field>
+            <field name="company_contrib">20</field>
+        </record>
+    </data>
 </odoo>
