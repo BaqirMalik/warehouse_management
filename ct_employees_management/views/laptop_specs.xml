@@ -92,18 +92,21 @@
 
     <menuitem id="laptop_specs_root"
               name="Laptop Specs"
-              parent="hr.menu_human_resources_configuration"
+              parent="hr.menu_hr_employee_payroll"
+              groups="ct_employees_management.group_hr_it_employee"
               sequence = "200"/>
 
     <menuitem id="laptop_core_menu"
               name="Core"
               parent="laptop_specs_root"
               action="view_laptop_core_action_new"
+              groups="ct_employees_management.group_hr_it_employee"
               sequence = '10'/>
 
     <menuitem id="laptop_generation_menu"
               name="Generation"
               parent="laptop_specs_root"
               action="view_laptop_generation_action_new"
+              groups="ct_employees_management.group_hr_it_employee"
               sequence = '20'/>
 </odoo>

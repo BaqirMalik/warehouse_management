@@ -157,7 +157,7 @@
     <!--Loan Menus-->
     <menuitem id="hr_loan_menu_root" name="Loans &amp; Advances"
               parent="hr.menu_hr_root"
-              groups="hr.group_hr_manager,account.group_account_manager,ct_loan_management.group_hr_loan_manager,ct_loan_management.group_hr_loan_user"
+              groups="ct_loan_management.group_hr_loan_manager,ct_loan_management.group_hr_loan_user"
               sequence="20"/>
 
     <menuitem id="hr_loan_menu" name="Loan"

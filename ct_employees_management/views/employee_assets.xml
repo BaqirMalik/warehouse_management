@@ -8,8 +8,7 @@
                 <header>
                     <button name="action_ready" type="object" string="Ready" class="oe_highlight"
                             invisible="state in ['assigned','ready']"/>
-                    <!--<button name="action_assigned" type="object" string="Assigned" class="oe_highlight"
-                            invisible="state in ['assigned','draft','returned']"/>-->
+
                     <button name="action_assigned" type="object" string="Assigned" class="oe_highlight"
                             invisible="1"/>
                     <button name="action_returned" type="object" string="Returned" class="oe_highlight"
@@ -30,7 +29,7 @@
                             <field name="battery_health"/>
                         </group>
                         <group>
-                            <field name="employee_id" widget="many2one_avatar_employee" invisible="1"/>
+                            <field name="employee_id" widget="many2one_avatar_employee"/>
                         </group>
                     </group>
                     <notebook>
@@ -92,6 +91,7 @@
         <field name="arch" type="xml">
             <tree>
                 <field name="name"/>
+                <field name="employee_id"/>
                 <field name="core"/>
                 <field name="generation"/>
                 <field name="mouse"/>
@@ -179,6 +179,6 @@
               action="view_employee_assets_action_new"
               parent="hr.menu_hr_employee_payroll"
               sequence="10"
-              groups="hr.group_hr_manager,ct_employees_management.group_hr_it_employee"
+              groups="ct_employees_management.group_hr_it_employee"
     />
 </odoo>

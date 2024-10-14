@@ -37,8 +37,9 @@
         <field name="arch" type="xml">
             <xpath expr="//field[@name='job_title']" position="before">
                 <group>
-                    <field name="pseudo_name"/>
-                    <field name="joining_date"/>
+                    <field name="pseudo_name" readonly="is_it_user == True"/>
+                    <field name="joining_date" readonly="is_it_user == True"/>
+                    <field name="is_it_user" invisible="1"/>
                 </group>
             </xpath>
             <xpath expr="//notebook//page[@name='personal_information']" position="after">
@@ -86,6 +87,36 @@
             </xpath>
             <xpath expr="//button[@name='%(om_hr_payroll.act_hr_employee_payslip_list)d']" position="attributes">
                 <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//field[@name='name']" position="attributes">
+                <attribute name="readonly">is_it_user == True</attribute>
+            </xpath>
+            <xpath expr="//field[@name='job_title']" position="attributes">
+                <attribute name="readonly">is_it_user == True</attribute>
+            </xpath>
+            <xpath expr="//field[@name='category_ids']" position="attributes">
+                <attribute name="readonly">is_it_user == True</attribute>
+            </xpath>
+            <xpath expr="//field[@name='mobile_phone']" position="attributes">
+                <attribute name="readonly">is_it_user == True</attribute>
+            </xpath>
+            <xpath expr="//field[@name='department_id']" position="attributes">
+                <attribute name="readonly">is_it_user == True</attribute>
+            </xpath>
+            <xpath expr="//field[@name='work_phone']" position="attributes">
+                <attribute name="readonly">is_it_user == True</attribute>
+            </xpath>
+            <xpath expr="//field[@name='work_email']" position="attributes">
+                <attribute name="readonly">is_it_user == True</attribute>
+            </xpath>
+            <xpath expr="//field[@name='job_id']" position="attributes">
+                <attribute name="readonly">is_it_user == True</attribute>
+            </xpath>
+            <xpath expr="//field[@name='parent_id']" position="attributes">
+                <attribute name="readonly">is_it_user == True</attribute>
+            </xpath>
+            <xpath expr="//field[@name='coach_id']" position="attributes">
+                <attribute name="readonly">is_it_user == True</attribute>
             </xpath>
         </field>
     </record>
