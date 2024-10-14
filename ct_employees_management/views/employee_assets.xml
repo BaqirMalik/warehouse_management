@@ -153,6 +153,8 @@
                 <group expand="1" string="Group By">
                     <filter name="employee_id" string="Employee ID" context="{'group_by':'employee_id'}"/>
                     <filter name="status" string="Status" context="{'group_by':'status'}"/>
+                    <filter name="core" string="Core" context="{'group_by':'core'}"/>
+                    <filter name="generation" string="Generation" context="{'group_by':'generation'}"/>
                 </group>
             </search>
         </field>
