@@ -74,6 +74,8 @@ class InheritHrEmployee(models.Model):
 
     def unlink(self):
         for rec in self:
+            if not self.env.user.has_group("hr.group_hr_manager"):
+                raise ValidationError(_("You don't Have Permission to Delete the Employee"))
             if not rec.employee_assets:
                 return super(InheritHrEmployee, self).unlink()
             else:

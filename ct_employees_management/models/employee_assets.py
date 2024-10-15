@@ -1,5 +1,5 @@
 from odoo import models, fields, api, _
-from odoo.exceptions import ValidationError
+from odoo.exceptions import ValidationError, UserError
 
 
 class EmployeeAssets(models.Model):
@@ -78,6 +78,13 @@ class EmployeeAssets(models.Model):
                 vals['sequence'] = self.env['ir.sequence'].next_by_code('employee.assets') or _('New')
         res = super(EmployeeAssets, self).create(vals_list)
         return res
+
+    def unlink(self):
+        for rec in self:
+            if rec.employee_id:
+                raise ValidationError(_('You Cannot Delete an asset that is Assigned to Employee!'))
+        return super(EmployeeAssets, self).unlink()
+
 
     class EmployeeAssitsLines(models.Model):
         _name = 'employee.assets.lines'

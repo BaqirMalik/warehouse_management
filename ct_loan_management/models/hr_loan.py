@@ -93,8 +93,9 @@ class HrLoan(models.Model):
             raise ValidationError(
                 _("The Employee has already a pending installment"))
         active_contract = self.env['hr.contract'].sudo().search([('employee_id','=',values.get('employee_id'))])
+        active_employee = self.env['hr.employee'].browse(values.get('employee_id'))
         if active_contract.sudo().state != 'open':
-            raise ValidationError(f"No Active Contract Found for this Employee{self.employee_id.name}")
+            raise ValidationError(f"No Active Contract Found for this Employee {active_employee.name}")
         else:
             values['name'] = self.env['ir.sequence'].get('hr.loan.seq') or ' '
             res = super(HrLoan, self).create(values)
@@ -211,6 +212,11 @@ class HrLoan(models.Model):
                             f"ERROR: Total amount of lines ({lines_sum_amount}) must be equal to Loan amount ({self.loan_amount}).")
             return res
 
+    @api.constrains('payment_date')
+    def check_payment_plan_date(self):
+        for rec in self:
+            if rec.payment_date and rec.payment_date < fields.date.today():
+                raise ValidationError(_("Payment Start Date Must be "))
 
 
 class HrLoanLine(models.Model):
