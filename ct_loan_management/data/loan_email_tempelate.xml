@@ -59,7 +59,7 @@
             <field name="body_html" type="html">
                 <div style="margin: 0px; padding: 0px;">
 
-                    <b>Dear<span t-out="object.employee_id.name"/>,
+                    <b>Dear &amp;nbsp <span t-out="object.employee_id.name"/>,
                     </b>
                     <br/>
                     <br/>

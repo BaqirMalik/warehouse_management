@@ -14,19 +14,21 @@ class InheritHrEmployee(models.Model):
     pseudo_name = fields.Char("Pseudo Name", tracking=True)
     joining_date = fields.Date(string="DOJ", help="Joining Date", tracking=True)
     redirect_link = fields.Char(string='Redirect Link')
-    is_it_user = fields.Boolean("Is IT/User", compute="_compute_is_field_readonly")
+    is_readonly = fields.Boolean("Is Readonly", compute="_compute_is_field_readonly")
+    is_it_user = fields.Boolean("Is It/User", default=False)
 
     def _compute_is_field_readonly(self):
         for record in self:
-            record.is_it_user = self.env.user.has_group("ct_employees_management.group_hr_it_employee")
+            if not self.env.user.has_group("hr.group_hr_manager"):
+                record.is_readonly = True
+            else:
+                record.is_readonly = False
 
     def create(self, vals):
         res = super(InheritHrEmployee, self).create(vals)
         asset_id = vals.get('employee_assets')
-        check_group = self.env.user.has_group("ct_employees_management.group_hr_it_employee")
-        if check_group:
+        if not self.env.user.has_group("hr.group_hr_manager"):
             raise ValidationError(_("You don't Have Permission to Create the Employee"))
-
         if asset_id:
             self.env['employee.assets.history'].create({
                 'employee_id': res.id,

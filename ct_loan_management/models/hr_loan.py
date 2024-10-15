@@ -197,7 +197,6 @@ class HrLoan(models.Model):
                 if line.status == 'pending' and line.date == date.today().replace(day=11):
                     line.status = 'paid'
                     line.paid = True
-                    # rec.employee_id.contract_id.wage = True
                     total_paid_amount += line.amount  # If you have an amount field
 
     @api.model
