@@ -6,6 +6,8 @@ from odoo.exceptions import ValidationError
 
 class InheritHrEmployee(models.Model):
     _inherit = 'hr.employee'
+    _rec_names_search = ['name', 'pseudo_name']
+
 
     employee_assets = fields.Many2one('employee.assets', string="Employee Asset",tracking=True, ondelete="restrict")
     provident_fund_ids = fields.One2many('employee.pf','employee_id', string='Provident Funds')
@@ -17,6 +19,13 @@ class InheritHrEmployee(models.Model):
     is_readonly = fields.Boolean("Is Readonly", compute="_compute_is_field_readonly")
     is_it_user = fields.Boolean("Is It/User", default=False)
 
+    @api.depends('name', 'pseudo_name')
+    def _compute_display_name(self):
+        for rec in self:
+            if rec.name:
+                rec.display_name = f"{rec.name} - {rec.pseudo_name}"
+            else:
+                rec.display_name = False
     def _compute_is_field_readonly(self):
         for record in self:
             if not self.env.user.has_group("hr.group_hr_manager"):
@@ -72,13 +81,17 @@ class InheritHrEmployee(models.Model):
                 previous_asset.asset_id.state = 'ready'
         return res
 
+
     def unlink(self):
         for rec in self:
-            if not self.env.user.has_group("hr.group_hr_manager"):
-                raise ValidationError(_("You don't Have Permission to Delete the Employee"))
-            if not rec.employee_assets:
-                return super(InheritHrEmployee, self).unlink()
-            else:
-                raise ValidationError(_('You have to un-allocate the Employee Assets first'))
+            raise ValidationError(_("Employee Can't be Deleted it can be Archived"))
+        return super(InheritHrEmployee, self).unlink()
 
-
+    # def unlink(self):
+    #     for rec in self:
+    #         if not self.env.user.has_group("hr.group_hr_manager"):
+    #             raise ValidationError(_("You don't Have Permission to Delete the Employee"))
+    #         if not rec.employee_assets:
+    #             return super(InheritHrEmployee, self).unlink()
+    #         else:
+    #             raise ValidationError(_('You have to un-allocate the Employee Assets first'))
