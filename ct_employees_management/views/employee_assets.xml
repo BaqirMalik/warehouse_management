@@ -89,7 +89,7 @@
         <field name="name">view.employee.assets.tree</field>
         <field name="model">employee.assets</field>
         <field name="arch" type="xml">
-            <tree>
+            <tree default_order="create_date desc">
                 <field name="name"/>
                 <field name="employee_id" readonly="1"/>
                 <field name="core"/>

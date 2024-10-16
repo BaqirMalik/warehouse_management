@@ -13,8 +13,13 @@ class InheritStockQuant(models.Model):
     def action_apply_inventory(self):
         active_ids = self.env.context.get('active_ids')
         consumption_request_id = self.env.context.get('consumption_request_id')
+        consumption_request = self.env['inventory.consumption.request'].browse(consumption_request_id)
+
         if active_ids:
             location_dest_id = self.env['stock.location'].search([('usage', '=', 'production')], limit=1)
+            for rec in consumption_request.Inventory_consumption_request_lines:
+                rec.product_id.reserve_qty = rec.product_id.reserve_qty - rec.qty_demand
+                rec.product_id.qty_available = rec.product_id.qty_available - rec.qty_demand
             for stock_quant in self.env['stock.quant'].browse(active_ids):
                 if stock_quant.quantity_to_consume:
                     available_quantity = stock_quant.quantity

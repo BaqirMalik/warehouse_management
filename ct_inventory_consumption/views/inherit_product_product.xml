@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="inherit_view_product_product" model="ir.ui.view">
+        <field name="name">inherit.view.product.product</field>
+        <field name="model">product.product</field>
+        <field name="inherit_id" ref="product.product_product_tree_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='qty_available']" position="after">
+                <field name="reserve_qty"/>
+            </xpath>
+            <xpath expr="//field[@name='reserve_qty']" position="after">
+                <field name="current_qty"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

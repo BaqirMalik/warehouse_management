@@ -85,16 +85,28 @@ class InventoryConsumptionRequest(models.Model):
         if not self.Inventory_consumption_request_lines:
             raise ValidationError(_('Please Add Line Before Requesting'))
         for rec in self.Inventory_consumption_request_lines:
-            if rec.qty_available == 0:
-                raise ValidationError(_('Quantity of %(product_name)s is Not Avaialable in Store',
+            last_reserve_qty = rec.product_id.reserve_qty
+            rec.product_id.reserve_qty = rec.qty_demand + last_reserve_qty
+            rec.product_id.current_qty = rec.qty_available - rec.product_id.reserve_qty
+
+            if rec.qty_demand > rec.qty_available:
+                raise ValidationError(_('Demand Quantity %(product_name)s is Greater than Available Quantity\n'
+                                        'Or Product Quantity is 0',
                                         product_name=rec.product_id.name))
+
+            if rec.qty_demand < 0:
+                raise ValidationError(_('Demand Quantity of %(product_name)s Must be Positive\n',
+                                        product_name=rec.product_id.name))
+
             if rec.qty_demand == 0:
                 raise ValidationError(_('Demand Quantity of %(product_name)s is 0\n'
                                         'Please Add Some Quanitity',
                                         product_name=rec.product_id.name))
-            if rec.qty_demand > rec.qty_available:
-                raise ValidationError(_('Demand Quantity %(product_name)s is Greater than Available Quantity',
+
+            if rec.product_id.current_qty < 0:
+                raise ValidationError(_('Quantity of %(product_name)s is Not Avaialable in Store',
                                         product_name=rec.product_id.name))
+
         mail_server = self.sudo().env['ir.mail_server'].search([], limit=1)
         for rec in self:
             users = self.env['res.users'].search(
@@ -153,16 +165,14 @@ class InventoryConsumptionRequest(models.Model):
                 quant.write({'quantity_to_consume': line.qty_demand})
 
     def action_cancel(self):
+        for rec in self.Inventory_consumption_request_lines:
+            rec.product_id.reserve_qty = rec.product_id.reserve_qty - rec.qty_demand
+            rec.product_id.current_qty = rec.current_qty + rec.qty_demand
         self.status = 'cancelled'
 
     def action_reset(self):
         self.status = 'draft'
 
-    # @api.model
-    # def create(self, vals):
-    #     if vals.get('reference', _('New')) == _('New'):
-    #         vals['reference'] = self.env['ir.sequence'].next_by_code('inventory.consumption.request') or _('New')
-    #     return super(InventoryConsumptionRequest, self).create(vals)
 
     @api.model
     def create(self, vals):

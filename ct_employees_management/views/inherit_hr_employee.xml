@@ -146,6 +146,19 @@
         </field>
     </record>
 
+    <record id="inherit_hr_employee_kanban" model="ir.ui.view">
+        <field name="name">inherit.hr.employee.kanban</field>
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr.hr_kanban_view_employees"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='name']" position="after">
+                <div>
+                    <field name="pseudo_name"/>
+                </div>
+            </xpath>
+        </field>
+    </record>
+
     <record id="hr.menu_human_resources_configuration" model="ir.ui.menu">
         <field name="name">Configuration</field>
         <field name="groups_id" eval="[(6, 0, [ref('hr.group_hr_manager')])]"/>

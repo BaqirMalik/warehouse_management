@@ -73,11 +73,13 @@
                                 <field name="Inventory_consumption_request_lines" required="True"
                                        readonly="status != 'draft'">
                                     <tree editable="bottom">
-                                        <field name="product_id" width="50%"
+                                        <field name="product_id" width="40%"
                                                options="{'no_quick_create': True, 'no_create_edit': True, 'no_open': True}"
                                         />
-                                        <field name="qty_available" width="25%"/>
-                                        <field name="qty_demand" width="25%"/>
+                                        <field name="qty_available" width="15%"/>
+                                        <field name="reserve_qty" width="15%"/>
+                                        <field name="current_qty" width="15%" invisible="reserve_qty == 0"/>
+                                        <field name="qty_demand" width="15%"/>
                                     </tree>
                                 </field>
                             </page>
