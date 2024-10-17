@@ -18,6 +18,15 @@ class InheritHrEmployee(models.Model):
     redirect_link = fields.Char(string='Redirect Link')
     is_readonly = fields.Boolean("Is Readonly", compute="_compute_is_field_readonly")
     is_it_user = fields.Boolean("Is It/User", default=False)
+    employee_status = fields.Many2one('hr.departure.reason', string='Employee Status',
+                                      default=lambda self: self._default_status())
+    resignation_date = fields.Date(string='Resignation Date')
+    resignation_detail = fields.Html(string='Resignation Detail')
+
+    @api.model
+    def _default_status(self):
+        return self.env['hr.departure.reason'].search([('name', '=', 'Current')], limit=1).id
+
 
     @api.depends('name', 'pseudo_name')
     def _compute_display_name(self):
@@ -64,21 +73,23 @@ class InheritHrEmployee(models.Model):
     def write(self, vals):
         res = super(InheritHrEmployee, self).write(vals)
         asset_id = vals.get('employee_assets')
-        if asset_id:
-            for employee in self:
-                self.env['employee.assets.history'].create({
-                    'employee_id': employee.id,
-                    'asset_id': asset_id,
-                    'date': date.today()
-                })
-            self.employee_assets.employee_id = self.id
-            self.employee_assets.state = 'assigned'
-        else:
-            previous_asset = self.env['employee.assets.history'].search([
-                ('employee_id', '=', self.id)
-            ], limit=1, order='id desc')
-            if previous_asset:
-                previous_asset.asset_id.state = 'ready'
+        if len(vals) == 1 and 'employee_assets' in vals:
+            for rec in self:
+                if asset_id:
+                    for employee in self:
+                        self.env['employee.assets.history'].create({
+                            'employee_id': employee.id,
+                            'asset_id': asset_id,
+                            'date': date.today()
+                        })
+                    self.employee_assets.employee_id = self.id
+                    self.employee_assets.state = 'assigned'
+                else:
+                    previous_asset = self.env['employee.assets.history'].search([
+                        ('employee_id', '=', rec.id)
+                    ], limit=1, order='id desc')
+                    if previous_asset:
+                        previous_asset.asset_id.state = 'ready'
         return res
 
 
@@ -95,3 +106,28 @@ class InheritHrEmployee(models.Model):
     #             return super(InheritHrEmployee, self).unlink()
     #         else:
     #             raise ValidationError(_('You have to un-allocate the Employee Assets first'))
+
+
+class InheritHrDepartureWizard(models.TransientModel):
+    _inherit = 'hr.departure.wizard'
+
+    def action_register_departure(self):
+        res = super(InheritHrDepartureWizard, self).action_register_departure()
+        users = self.env['res.users'].search(
+            [('groups_id', 'in', [self.env.ref('ct_employees_management.group_hr_it_employee').id])]
+        )
+        for rec in self:
+            if rec.departure_date:
+                rec.employee_id.resignation_date = rec.departure_date
+                rec.employee_id.resignation_detail = rec.departure_description
+                rec.employee_id.employee_status = rec.departure_reason_id
+            base_url = self.env['ir.config_parameter'].sudo().get_param('web.base.url')
+            redirect_link = '%s/web#id=%d&view_type=form&model=%s' % (base_url, self.employee_id.id, self.employee_id._name)
+            self.employee_id.write({'redirect_link': redirect_link})
+            template = self.sudo().env().ref('ct_employees_management.employee_resignation_email_template')
+            IrMailServer = self.sudo().env['ir.mail_server'].search([('name', '=', 'Crecentech Outgoing Email Server')])
+            template.sudo().write({'email_from': IrMailServer.smtp_user})
+        for user in users:
+            template.sudo().write({'email_to': user.login})
+            template.send_mail(self.employee_id.id, force_send=True)
+        return res

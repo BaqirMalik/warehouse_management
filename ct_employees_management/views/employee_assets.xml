@@ -11,8 +11,8 @@
 
                     <button name="action_assigned" type="object" string="Assigned" class="oe_highlight"
                             invisible="1"/>
-                    <button name="action_returned" type="object" string="Returned" class="oe_highlight"
-                            invisible="state in ['returned','ready','draft']"/>
+<!--                    <button name="action_returned" type="object" string="Returned" class="oe_highlight"-->
+<!--                            invisible="state in ['returned','ready','draft']"/>-->
                     <field name="state" widget="statusbar"/>
                 </header>
                 <sheet>
@@ -29,7 +29,7 @@
                             <field name="battery_health"/>
                         </group>
                         <group>
-                            <field name="employee_id" widget="many2one_avatar_employee" readonly="1"/>
+                            <field name="employee_id" widget="many2one_avatar_employee" readonly="1" invisible="state == 'ready'"/>
                         </group>
                     </group>
                     <notebook>
@@ -44,6 +44,8 @@
                                 <field name="headphone"/>
                                 <field name="headphone_brand" invisible="headphone != True"/>
                                 <field name="headphone_issue_date" invisible="headphone != True"/>
+                                <field name="handsfree"/>
+
                             </group>
                         </page>
                         <page string="Specification">
@@ -97,6 +99,7 @@
                 <field name="mouse"/>
                 <field name="charger"/>
                 <field name="headphone"/>
+                <field name="handsfree"/>
                 <field name="is_graphic_card"/>
             </tree>
         </field>

@@ -19,8 +19,7 @@ class EmployeeAssets(models.Model):
     state = fields.Selection([
         ('draft', 'Draft'),
         ('ready', 'Ready'),
-        ('assigned', 'Assigned'),
-        ('returned', 'Returned')
+        ('assigned', 'Assigned')
     ], default='draft', tracking=True)
     mouse = fields.Boolean(string='Mouse', tracking=True)
     mouse_brand = fields.Char(string='Mouse Detail', tracking=True)
@@ -29,6 +28,7 @@ class EmployeeAssets(models.Model):
     lcd_brand = fields.Char(string='LCD Detail', tracking=True)
     charger = fields.Boolean(string='Charger', tracking=True)
     headphone = fields.Boolean(string='HeadPhone', tracking=True)
+    handsfree = fields.Boolean(string='Handsfree', tracking=True)
     headphone_brand = fields.Char(string='HeadPhone Detail', tracking=True)
     headphone_issue_date = fields.Date(string='HeadPhone Issue Date', tracking=True)
     core = fields.Many2one('laptop.core',string='Core', tracking=True)

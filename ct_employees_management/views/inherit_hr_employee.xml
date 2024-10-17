@@ -44,12 +44,14 @@
                 </group>
             </xpath>
             <xpath expr="//notebook//page[@name='personal_information']" position="after">
-                <page name="employee_assets" string="Employee Assets" groups="hr.group_hr_manager,ct_employees_management.group_hr_it_employee">
+                <page name="employee_assets" string="Employee Assets"
+                      groups="hr.group_hr_manager,ct_employees_management.group_hr_it_employee">
                     <group>
                         <field name="employee_assets" domain="[('state', '=', 'ready')]"/>
                     </group>
                 </page>
-                <page name="employee_assets_history" string="Assets History" groups="hr.group_hr_manager,ct_employees_management.group_hr_it_employee">
+                <page name="employee_assets_history" string="Assets History"
+                      groups="hr.group_hr_manager,ct_employees_management.group_hr_it_employee">
                     <field name="employee_assets_history_ids" readonly="1">
                         <tree create="0" delete="0">
                             <field name="asset_id"/>
@@ -119,6 +121,28 @@
             <xpath expr="//field[@name='coach_id']" position="attributes">
                 <attribute name="readonly">is_readonly == True</attribute>
             </xpath>
+            <xpath expr="//field[@name='work_email']" position="after">
+                <field name="employee_status" readonly="True"/>
+            </xpath>
+            <xpath expr="//notebook//page[@name='hr_settings']" position="after">
+                <page string="Resignation Detail" invisible="active != False" groups="hr.group_hr_manager">
+                    <group>
+                        <field name="resignation_date" readonly="True"/>
+                        <field name="resignation_detail" readonly="True"/>
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="inherit_hr_departure_wizard" model="ir.ui.view">
+        <field name="name">inherit.hr.departure.wizard</field>
+        <field name="model">hr.departure.wizard</field>
+        <field name="inherit_id" ref="hr.hr_departure_wizard_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='departure_description']" position="attributes">
+                <attribute name="required">1</attribute>
+            </xpath>
         </field>
     </record>
 
@@ -154,6 +178,9 @@
             <xpath expr="//field[@name='name']" position="after">
                 <div>
                     <field name="pseudo_name"/>
+                </div>
+                <div>
+                    <field name="joining_date"/>
                 </div>
             </xpath>
         </field>
