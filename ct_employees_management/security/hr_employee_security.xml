@@ -9,5 +9,10 @@
             <field name="name">IT</field>
             <field name="category_id" ref="ct_employees_management.employee_asset_management"/>
         </record>
+
+        <record id="group_hr_it_manager" model="res.groups">
+            <field name="name">Manager</field>
+            <field name="category_id" ref="ct_employees_management.employee_asset_management"/>
+        </record>
     </data>
 </odoo>
