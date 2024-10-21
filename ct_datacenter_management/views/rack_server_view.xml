@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="view_form_rack_server" model="ir.ui.view">
+        <field name="name">rack.server.form</field>
+        <field name="model">rack.server</field>
+        <field name="arch" type="xml">
+            <form string="Rack Server">
+                <header>
+                    <field name="status" widget="statusbar" options="{'clickable': '1'}"/>
+                </header>
+                <sheet>
+                    <widget name="web_ribbon" text="Active"
+                            bg_color="text-bg-success"
+                            invisible="status != 'active'"/>
+                    <widget name="web_ribbon" text="In Active"
+                            bg_color="text-bg-danger"
+                            invisible="status != 'inactive'"/>
+                    <div class="oe_title" style="margin-bottom:40px;">
+                        <h1>
+                            <field name="server_name" placeholder="Rack Server"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="model"/>
+                            <field name="operating_system"/>
+                            <field name="processor_info"/>
+                            <field name="ip_address"/>
+                        </group>
+                        <group>
+                            <field name="no_of_nics"/>
+                            <field name="virtual_machines"/>
+                            <field name="storage_capacity"/>
+                            <field name="total_memory"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page name="vm_specs_ids" string="VMs &amp; Specs">
+                            <field name="vm_specs_ids">
+                                <tree editable="bottom" delete="False">
+                                    <field name="name" width="15%" required="True"/>
+                                    <field name="operating_system" width="15%"/>
+                                    <field name="cpu_cores" width="15%"/>
+                                    <field name="ram" width="15%"/>
+                                    <field name="storage" width="10%"/>
+                                    <field name="ip_address" width="10%"/>
+                                    <field name="status" width="10%"/>
+                                    <field name="ownership" width="10%"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page name="racks_maintenance_ids" string="Rack/Server Maintenance">
+                            <field name="racks_maintenance_ids">
+                                <tree editable="bottom" delete="False">
+                                    <field name="responsible_id" width="20%" required="1"/>
+                                    <field name="maintenance_date" width="20%" required="1"/>
+                                    <field name="notes" width="40%"/>
+                                    <field name="maintenance_cost" width="20%" sum="Total"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" groups="base.group_user"
+                           options="{'post_refresh': 'recipients'}"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_tree_rack_server" model="ir.ui.view">
+        <field name="name">rack.server.tree</field>
+        <field name="model">rack.server</field>
+        <field name="arch" type="xml">
+            <tree string="Rack Servers">
+                <field name="server_name" width="20"/>
+                <field name="operating_system" width="20"/>
+                <field name="model" width="10"/>
+                <field name="processor_info" width="10"/>
+                <field name="ip_address" width="10"/>
+                <field name="no_of_nics" width="10"/>
+                <field name="virtual_machines" width="10"/>
+                <field name="storage_capacity" width="10"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_kanban_rack_server" model="ir.ui.view">
+        <field name="name">view.rack.server.kanban</field>
+        <field name="model">rack.server</field>
+        <field name="arch" type="xml">
+            <kanban class="o_kanban_mobile">
+                <field name="server_name"/>
+                <field name="ip_address"/>
+                <field name="model"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div t-attf-class="oe_kanban_card oe_kanban_global_click">
+                            <div class="o_kanban_record_top">
+                                <div class="o_kanban_record_headings">
+                                    <strong class="o_kanban_record_title">
+                                        <span>
+                                            <t t-esc="record.server_name.value"/>
+                                        </span>
+                                    </strong>
+                                </div>
+                                <div class="oe_kanban_top_right">
+                                    <field name="status" class="kanban_badge" widget="label_selection"
+                                           options="{'classes': {'draft': 'default', 'pending': 'warning', 'approved': 'info', 'cancelled': 'danger'}}"/>
+                                </div>
+                            </div>
+                            <div class="o_kanban_record_bottom">
+                                <div class="oe_kanban_bottom_left">
+                                    <span>
+                                        <b>IP Address:</b>
+                                        <t t-esc="record.ip_address.value"/>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="o_kanban_record_bottom">
+                                <div class="oe_kanban_bottom_left">
+                                    <span>
+                                        <b>Model:</b>
+                                        <t t-esc="record.model.value"/>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="view_search_rack_server" model="ir.ui.view">
+        <field name="name">view.ack.server.search</field>
+        <field name="model">rack.server</field>
+        <field name="arch" type="xml">
+            <search string="Server/Rack">
+                <field name="server_name"/>
+                <field name="ip_address"/>
+                <field name="model"/>
+                <separator/>
+                <filter name="status" string="Active" domain="[('status', '=', 'active')]"/>
+                <filter name="status" string="In Active" domain="[('status', '=', 'inactive')]"/>
+                <group expand="1" string="Group By">
+                    <filter name="status" string="Status" context="{'group_by':'status'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="rack_server_action" model="ir.actions.act_window">
+        <field name="name">Rack Servers</field>
+        <field name="res_model">rack.server</field>
+        <field name="view_mode">tree,form,kanban</field>
+        <field name="view_id" ref="view_tree_rack_server"/>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">
+                Click to Create a New Record.
+            </p>
+        </field>
+    </record>
+
+    <menuitem id="rack_server_menu"
+              name="Rack Servers"
+              parent="datacenter_internet_menu"
+              sequence="10"/>
+
+    <menuitem id="rack_server_root"
+              name="Rack Servers"
+              parent="rack_server_menu"
+              action="rack_server_action"
+              sequence="10"/>
+</odoo>

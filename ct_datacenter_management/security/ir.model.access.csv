@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_internet_internet,internet.internet,model_internet_internet,,1,1,1,1
+access_rack_server,rack.server,model_rack_server,,1,1,1,1
+access_vm_specs,vm.specs,model_vm_specs,,1,1,1,1
+access_rack_maintenance,rack.maintenance,model_rack_maintenance,,1,1,1,1

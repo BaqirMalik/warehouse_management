@@ -1,0 +1,165 @@
+<odoo>
+
+    <record id="view_internet_form" model="ir.ui.view">
+        <field name="name">view.internet.form</field>
+        <field name="model">internet.internet</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <field name="status" widget="statusbar" options="{'clickable': '1'}"/>
+                </header>
+                <sheet>
+                    <widget name="web_ribbon" text="Primary"
+                                bg_color="text-bg-success"
+                                invisible="status != 'primary'"/>
+                    <widget name="web_ribbon" text="Secondary"
+                                bg_color="text-bg-info"
+                                invisible="status != 'secondary'"/>
+                    <div class="oe_title" style="margin-bottom:40px;">
+                        <h1>
+                            <field name="provider" placeholder="Internet Service Provider"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="speed"/>
+                            <field name="type"/>
+                        </group>
+                        <group>
+                            <field name="connection"/>
+                            <field name="backup_connection"/>
+                        </group>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" groups="base.group_user"
+                           options="{'post_refresh': 'recipients'}"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_internet_tree" model="ir.ui.view">
+        <field name="name">view.internet.tree</field>
+        <field name="model">internet.internet</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="provider"/>
+                <field name="speed"/>
+                <field name="type"/>
+                <field name="connection"/>
+                <field name="backup_connection"/>
+                <field name="status"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_internet_kanban" model="ir.ui.view">
+        <field name="name">view.internet.kanban</field>
+        <field name="model">internet.internet</field>
+        <field name="arch" type="xml">
+            <kanban>
+                <field name="provider"/>
+                <field name="speed"/>
+                <field name="type"/>
+                <field name="status"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div t-attf-class="oe_kanban_card oe_kanban_global_click">
+                            <div class="o_kanban_record_top">
+                                <div class="o_kanban_record_headings">
+                                    <strong class="o_kanban_record_title">
+                                        <span>
+                                            <t t-esc="record.provider.value"/>
+                                        </span>
+                                    </strong>
+                                </div>
+                                <div class="oe_kanban_top_right">
+                                    <field name="status" class="kanban_badge" widget="label_selection"
+                                           options="{'classes': {'draft': 'default', 'pending': 'warning', 'approved': 'info', 'cancelled': 'danger'}}"/>
+                                </div>
+                            </div>
+                            <div class="o_kanban_record_bottom">
+                                <div class="oe_kanban_bottom_left">
+                                    <span>
+                                        <b>Speed:</b>
+                                        <t t-esc="record.speed.value"/>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="o_kanban_record_bottom">
+                                <div class="oe_kanban_bottom_left">
+                                    <span>
+                                        <b>Type:</b>
+                                        <t t-esc="record.type.value"/>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="view_internet_search" model="ir.ui.view">
+         <field name="name">view.internet.search</field>
+         <field name="model">internet.internet</field>
+         <field name="arch" type="xml">
+             <search string="Internet">
+                 <field name="provider"/>
+                 <field name="type"/>
+                 <field name="connection"/>
+                 <separator/>
+                 <filter name="status" string="Primary" domain="[('status', '=', 'primary')]"/>
+                 <filter name="status" string="Secondary" domain="[('status', '=', 'secondary')]"/>
+                 <filter name="type" string="Dedicated" domain="[('type', '=', 'dedicated')]"/>
+                 <filter name="type" string="Shared" domain="[('type', '=', 'shared')]"/>
+                 <group expand="1" string="Group By">
+                     <filter name="provider" string="Provider" context="{'group_by':'provider'}"/>
+                     <filter name="speed" string="Speed" context="{'group_by':'speed'}"/>
+                     <filter name="type" string="Type" context="{'group_by':'type'}"/>
+                     <filter name="connection" string="Connection" context="{'group_by':'connection'}"/>
+                     <filter name="status" string="Status" context="{'group_by':'status'}"/>
+                 </group>
+             </search>
+         </field>
+     </record>
+
+    <record id="view_internet_action" model="ir.actions.act_window">
+        <field name="name">Internet</field>
+        <field name="res_model">internet.internet</field>
+        <field name="view_mode">tree,form,kanban</field>
+        <field name="view_id" ref="view_internet_tree"/>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">
+                Click to Create a New Record.
+            </p>
+        </field>
+    </record>
+
+
+    <menuitem id="datacenter_internet_menu"
+              name="Data Center"
+              web_icon="ct_datacenter_management,static/description/icon.png"
+              groups="ct_employees_management.group_hr_it_employee"
+              sequence="186"
+    />
+
+    <menuitem id="datacenter_internet_root"
+              name="Internet"
+              parent="datacenter_internet_menu"
+              sequence="20"
+    />
+
+    <menuitem id="internet_root"
+              name="Internet"
+              action="view_internet_action"
+              parent="datacenter_internet_root"
+              sequence="10"
+    />
+
+
+</odoo>
