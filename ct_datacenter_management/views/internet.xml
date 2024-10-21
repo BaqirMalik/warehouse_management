@@ -141,15 +141,10 @@
     </record>
 
 
-    <!--<menuitem id="datacenter_internet_menu"
-              name="Data Center"
-              web_icon="ct_datacenter_management,static/description/icon.png"
-              groups="ct_employees_management.group_hr_it_employee,ct_employees_management.group_hr_it_manager"
-              sequence="186"
-    />-->
     <menuitem id="datacenter_internet_menu"
               name="Data Center"
               web_icon="ct_datacenter_management,static/description/icon.png"
+              groups="ct_employees_management.group_hr_it_employee,ct_employees_management.group_hr_it_manager"
               sequence="186"
     />
 

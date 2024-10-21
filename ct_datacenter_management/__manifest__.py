@@ -10,7 +10,7 @@
     'website': "https://crecentech.com/",
     'category': 'inventory',
     'version': '0.1',
-    'depends': ['mail'],
+    'depends': ['mail','ct_employees_management'],
     'data': [
             'security/ir.model.access.csv',
             'views/internet.xml',
