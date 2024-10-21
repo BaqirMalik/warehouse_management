@@ -14,7 +14,7 @@ class InheritHrEmployee(models.Model):
 
     employee_assets_history_ids = fields.One2many('employee.assets.history','employee_id', string='Employee Assets History')
     pseudo_name = fields.Char("Pseudo Name", tracking=True)
-    joining_date = fields.Date(string="DOJ", help="Joining Date", tracking=True)
+    joining_date = fields.Date(string="Joining Date", help="Joining Date", tracking=True)
     redirect_link = fields.Char(string='Redirect Link')
     is_readonly = fields.Boolean("Is Readonly", compute="_compute_is_field_readonly")
     is_it_user = fields.Boolean("Is It/User", default=False)
