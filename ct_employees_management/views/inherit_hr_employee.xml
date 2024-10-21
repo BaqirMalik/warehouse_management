@@ -45,13 +45,13 @@
             </xpath>
             <xpath expr="//notebook//page[@name='personal_information']" position="after">
                 <page name="employee_assets" string="Employee Assets"
-                      groups="hr.group_hr_manager,ct_employees_management.group_hr_it_employee">
+                      groups="ct_employees_management.group_hr_it_manager,ct_employees_management.group_hr_it_employee">
                     <group>
                         <field name="employee_assets" domain="[('state', '=', 'ready')]"/>
                     </group>
                 </page>
                 <page name="employee_assets_history" string="Assets History"
-                      groups="hr.group_hr_manager,ct_employees_management.group_hr_it_employee">
+                      groups="ct_employees_management.group_hr_it_manager,ct_employees_management.group_hr_it_employee">
                     <field name="employee_assets_history_ids" readonly="1">
                         <tree create="0" delete="0">
                             <field name="asset_id"/>
