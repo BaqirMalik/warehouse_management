@@ -40,4 +40,4 @@ class VMSpec(models.Model):
         [('active', 'Active'), ('inactive', 'Inactive'), ('maintenance', 'Under Maintenance')],
         string='Status', default='active', tracking=True)
     rack_server_id = fields.Many2one('rack.server',string='VM Spec')
-    ownership = fields.Many2one('hr.employee',string='Ownership', tracking=True)
+    ownership = fields.Char(string='Ownership', tracking=True)
