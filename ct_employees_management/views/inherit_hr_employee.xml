@@ -94,8 +94,10 @@
             <xpath expr="//field[@name='name']" position="attributes">
                 <attribute name="readonly">is_readonly == True</attribute>
             </xpath>
-            <xpath expr="//field[@name='job_title']" position="attributes">
-                <attribute name="readonly">is_readonly == True</attribute>
+            <xpath expr="//field[@name='job_title']" position="replace">
+                <group>
+                    <field name="job_title" readonly="1" string="Job Position"/>
+                </group>
             </xpath>
             <xpath expr="//field[@name='category_ids']" position="attributes">
                 <attribute name="readonly">is_readonly == True</attribute>
@@ -117,9 +119,11 @@
             </xpath>
             <xpath expr="//field[@name='parent_id']" position="attributes">
                 <attribute name="readonly">is_readonly == True</attribute>
+                <attribute name="options">{'no_create_edit': True, 'no_open': True, 'no_create': True}</attribute>
             </xpath>
             <xpath expr="//field[@name='coach_id']" position="attributes">
                 <attribute name="readonly">is_readonly == True</attribute>
+                <attribute name="options">{'no_create_edit': True, 'no_open': True, 'no_create': True}</attribute>
             </xpath>
             <xpath expr="//field[@name='work_email']" position="after">
                 <field name="employee_status" readonly="True"/>

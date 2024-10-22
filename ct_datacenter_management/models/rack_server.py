@@ -1,4 +1,5 @@
-from odoo import fields,models,_
+from odoo import fields, models, _, api
+
 
 class RackServer(models.Model):
     _name = 'rack.server'
@@ -8,7 +9,7 @@ class RackServer(models.Model):
     server_name = fields.Char(string='Server Name', required=True, tracking=True)
     ip_address = fields.Char(string='IP Address', tracking=True)
     no_of_nics = fields.Integer(string='Number of NICs', tracking=True)
-    virtual_machines = fields.Integer(string='Number of VM', tracking=True)
+    virtual_machines = fields.Integer(string='Number of VM', compute='_compute_count')
     storage_capacity = fields.Char(string='Data Storage (TB)', tracking=True)
     model = fields.Char(string='Model', tracking=True)
     processor_info = fields.Char(string='Processor Info', tracking=True)
@@ -21,8 +22,10 @@ class RackServer(models.Model):
         ('inactive', 'In Active')
     ],string='Status', tracking=True)
 
-
-
+    @api.depends('vm_specs_ids')
+    def _compute_count(self):
+        for record in self:
+            record.virtual_machines = len(record.vm_specs_ids)
 
 
 
@@ -41,3 +44,5 @@ class VMSpec(models.Model):
         string='Status', default='active', tracking=True)
     rack_server_id = fields.Many2one('rack.server',string='VM Spec')
     ownership = fields.Char(string='Ownership', tracking=True)
+
+
