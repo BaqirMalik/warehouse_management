@@ -1,3 +1,4 @@
+import re
 from datetime import date
 
 from odoo import models, fields, api, _
@@ -23,6 +24,12 @@ class InheritHrEmployee(models.Model):
     resignation_date = fields.Date(string='Resignation Date')
     resignation_detail = fields.Html(string='Resignation Detail')
 
+    @api.constrains('work_email')
+    def validate_mail(self):
+        if self.work_email:
+            match = re.match('^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$', self.work_email)
+            if match == None:
+                raise ValidationError('Please Enter Valid Email Address.')
     @api.model
     def _default_status(self):
         return self.env['hr.departure.reason'].search([('name', '=', 'Current')], limit=1).id

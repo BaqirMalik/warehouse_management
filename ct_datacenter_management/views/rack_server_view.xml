@@ -96,6 +96,7 @@
                 <field name="server_name"/>
                 <field name="ip_address"/>
                 <field name="model"/>
+                <field name="operating_system"/>
                 <templates>
                     <t t-name="kanban-box">
                         <div t-attf-class="oe_kanban_card oe_kanban_global_click">
@@ -125,6 +126,14 @@
                                     <span>
                                         <b>Model:</b>
                                         <t t-esc="record.model.value"/>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="o_kanban_record_bottom">
+                                <div class="oe_kanban_bottom_left">
+                                    <span>
+                                        <b>OS:</b>
+                                        <t t-esc="record.operating_system.value"/>
                                     </span>
                                 </div>
                             </div>
