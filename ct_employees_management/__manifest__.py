@@ -12,7 +12,7 @@ Long description of module's purpose
     'website': "https://www.yourcompany.com",
     'category': 'Uncategorized',
     'version': '0.1',
-    'depends': ['base', 'hr', 'hr_contract', 'om_hr_payroll','hr_gamification','account','hr_holidays'],
+    'depends': ['base', 'hr', 'hr_contract', 'om_hr_payroll','hr_gamification','account','hr_holidays','ct_inventory_consumption'],
     'data': [
         'security/ir.model.access.csv',
         'security/hr_employee_security.xml',

@@ -182,6 +182,6 @@
               action="view_employee_assets_action_new"
               parent="hr.menu_hr_employee_payroll"
               sequence="10"
-              groups="ct_employees_management.group_hr_it_employee,ct_employees_management.group_hr_it_manager"
+              groups="ct_employees_management.group_hr_it_manager,ct_employees_management.group_hr_it_employee,ct_inventory_consumption.group_invnetory_consumption_user"
     />
 </odoo>
