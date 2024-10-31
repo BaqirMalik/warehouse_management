@@ -96,3 +96,10 @@ class EmployeeAssets(models.Model):
         assets_id = fields.Many2one('employee.assets')
         expense_amount = fields.Float(string='Expense Amount')
 
+        invoice_pdf_report_file = fields.Binary(
+            attachment=True,
+            string="Receipt Attachment",
+            copy=False,
+        )
+        invoice_pdf_report_file_name = fields.Char("File Name")
+

@@ -68,10 +68,12 @@
                         <page name="assets_lines" string="Repair/Accessories History">
                             <field name="assets_lines">
                                 <tree editable="bottom" delete="False">
-                                    <field name="employee_id" width="25%" required="True"/>
-                                    <field name="date" width="25%" required="True"/>
+                                    <field name="employee_id" width="15%" required="True"/>
+                                    <field name="date" width="15%" required="True"/>
                                     <field name="notes" width="25%"/>
-                                    <field name="expense_amount" width="25%" sum="Total"/>
+                                    <field name="invoice_pdf_report_file_name" invisible="1" column_invisible="True"/>
+                                    <field name="invoice_pdf_report_file" width="15%" widget="binary" filename="invoice_pdf_report_file_name"/>
+                                    <field name="expense_amount" width="30%" sum="Total"/>
                                 </tree>
                             </field>
                         </page>
@@ -153,6 +155,8 @@
                 <filter name="active" string="Active" domain="[('status', '=', 'active')]"/>
                 <filter name="inactive" string="In-active" domain="[('status', '=', 'inactive')]"/>
                 <filter name="is_graphic_card" string="Graphic Card" domain="[('is_graphic_card', '=', True)]"/>
+                <filter name="state" string="Ready" domain="[('state', '=', 'ready')]"/>
+                <filter name="state" string="Assigned" domain="[('state', '=', 'assigned')]"/>
                 <group expand="1" string="Group By">
                     <filter name="employee_id" string="Employee ID" context="{'group_by':'employee_id'}"/>
                     <filter name="status" string="Status" context="{'group_by':'status'}"/>
