@@ -100,7 +100,6 @@ class EmployeeAssets(models.Model):
             attachment=True,
             string="Receipt Attachment",
             copy=False,
-            required=True,
         )
         invoice_pdf_report_file_name = fields.Char("File Name")
 
