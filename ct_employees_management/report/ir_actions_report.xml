@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+
+        <record id="action_report_assets_pdf" model="ir.actions.report">
+            <field name="name">Assets Report Pdf</field>
+            <field name="model">employee.assets</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">ct_employees_management.report_assets_detail</field>
+            <field name="report_file">ct_employees_management.report_assets_detail</field>
+            <field name="binding_model_id" ref="model_employee_assets"/>
+            <field name="binding_type">report</field>
+        </record>
+
+        <!--<record id="action_print_assets_excel_report"
+                model="ir.actions.server">
+            <field name="name">Assets Report Excel</field>
+            <field name="model_id" ref="model_employee_assets"/>
+            <field name="binding_model_id" ref="model_employee_assets"/>
+            <field name="binding_view_types">list</field>
+            <field name="state">code</field>
+            <field name="code">
+                action = record.print_excel_report()
+            </field>
+        </record>-->
+
+    </data>
+</odoo>

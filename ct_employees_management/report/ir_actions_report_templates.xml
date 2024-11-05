@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_assets_detail">
+        <t t-call="web.html_container">
+            <t t-call="web.external_layout">
+                <div class="page">
+                    <div class="row" id="hash_header">
+                        <div class="col-12">
+                            <h1 style="text-align:center;">Assets Report</h1>
+                            <br/>
+                        </div>
+                    </div>
+
+                    <!-- Table Header -->
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr style="font-weight: bold; text-align: left; font-size: 18px;">
+                                <th style="padding: 10px; width: 150px;">
+                                    <strong>Emp. Name</strong>
+                                </th>
+                                <th style="padding: 10px; width: 150px;">
+                                    <strong>Pseudo Name</strong>
+                                </th>
+                                <th style="padding: 10px;">
+                                    <strong>Assets</strong>
+                                </th>
+                                <th style="padding: 10px;">
+                                    <strong>Core</strong>
+                                </th>
+                                <th style="padding: 10px;">
+                                    <strong>Generation</strong>
+                                </th>
+                                <th style="padding: 10px;">
+                                    <strong>Mouse</strong>
+                                </th>
+                                <th style="padding: 10px;">
+                                    <strong>Charger</strong>
+                                </th>
+                                <th style="padding: 10px;">
+                                    <strong>HeadPhone</strong>
+                                </th>
+                                <th style="padding: 10px;">
+                                    <strong>Status</strong>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-foreach="docs" t-as="o">
+                                <tr style="background-color: #f2f2f2; font-weight: bold;">
+                                    <td class="text-left">
+                                        <span t-esc="o.employee_id.name"/>
+                                    </td>
+                                    <td class="text-left">
+                                        <span t-esc="o.employee_id.pseudo_name"/>
+                                    </td>
+                                    <td class="text-left">
+                                        <span t-esc="o.name"/>
+                                    </td>
+                                    <td class="text-left">
+                                        <span t-esc="o.core.code"/>
+                                    </td>
+                                    <td class="text-left">
+                                        <span t-esc="o.generation.code"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <t t-if="o.mouse">
+                                            <input type="checkbox" id="checkbox104_checked"
+                                                   checked="checked"/>
+                                        </t>
+                                        <t t-if="not o.mouse">
+                                            <input type="checkbox" id="checkbox104_unchecked"/>
+                                        </t>
+                                    </td>
+                                    <td class="text-center">
+                                        <t t-if="o.charger">
+                                            <input type="checkbox" id="checkbox104_checked"
+                                                   checked="checked"/>
+                                        </t>
+                                        <t t-if="not o.charger">
+                                            <input type="checkbox" id="checkbox104_unchecked"/>
+                                        </t>
+                                    </td>
+                                    <td class="text-center">
+                                        <t t-if="o.headphone">
+                                            <input type="checkbox" id="checkbox104_checked"
+                                                   checked="checked"/>
+                                        </t>
+                                        <t t-if="not o.headphone">
+                                            <input type="checkbox" id="checkbox104_unchecked"/>
+                                        </t>
+                                    </td>
+                                    <td class="text-left">
+                                        <t t-if="o.state == 'draft'">
+                                            <span>Draft</span>
+                                        </t>
+                                        <t t-if="o.state == 'ready'">
+                                            <span>Ready</span>
+                                        </t>
+                                        <t t-if="o.state == 'assigned'">
+                                            <span>Assigned</span>
+                                        </t>
+                                        <t t-if="o.state == 'returned'">
+                                            <span>Returned</span>
+                                        </t>
+                                    </td>
+                                </tr>
+                            </t>
+                        </tbody>
+                    </table>
+                </div>
+            </t>
+        </t>
+    </template>
+</odoo>

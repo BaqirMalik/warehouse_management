@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_datacenter_detail">
+        <t t-call="web.html_container">
+            <t t-call="web.external_layout">
+                <div class="page">
+                    <div class="row" id="hash_header">
+                        <div class="col-12">
+                            <h1 style="text-align:center;">DataCenter Report</h1>
+                            <br/>
+                        </div>
+                    </div>
+                    <t t-foreach="docs" t-as="o">
+                        <div class="row">
+                            <div class="col-8">
+                                <span>Server Name:&amp;nbsp;</span>
+                                <span t-esc="o.server_name"/>
+                                <br/>
+                                <span>Model:&amp;nbsp;</span>
+                                <span t-esc="o.model"/>
+                                <br/>
+                                <span>Processor:&amp;nbsp;</span>
+                                <span t-esc="o.processor_info"/>
+                                <br/>
+                                <span>No of NICs:&amp;nbsp;</span>
+                                <span t-esc="o.no_of_nics"/>
+                            </div>
+                            <div class="col-4">
+                                <span>OS:&amp;nbsp;</span>
+                                <span t-esc="o.operating_system"/>
+                                <br/>
+                                <span>IP Address:&amp;nbsp;</span>
+                                <span t-esc="o.ip_address"/>
+                                <br/>
+                                <span>Storage:&amp;nbsp;</span>
+                                <span t-esc="o.storage_capacity"/>
+                                <br/>
+                                <span>No of VMs:&amp;nbsp;</span>
+                                <span t-esc="o.virtual_machines"/>
+                            </div>
+                        </div>
+                        <br/>
+                        <br/>
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr style="font-weight: bold; text-align: left; font-size: 17px;">
+                                    <th style="padding: 10px; width: 80px;">
+                                        <strong>VM Name</strong>
+                                    </th>
+                                    <th style="padding: 10px; width: 80px;">
+                                        <strong>OS</strong>
+                                    </th>
+                                    <th style="padding: 10px;">
+                                        <strong>CPU Core</strong>
+                                    </th>
+                                    <th style="padding: 10px;">
+                                        <strong>RAM</strong>
+                                    </th>
+                                    <th style="padding: 10px;">
+                                        <strong>Storage</strong>
+                                    </th>
+                                    <th style="padding: 10px;">
+                                        <strong>IP Address</strong>
+                                    </th>
+                                    <th style="padding: 10px;">
+                                        <strong>Status</strong>
+                                    </th>
+                                    <th style="padding: 10px;">
+                                        <strong>Ownership</strong>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <t t-foreach="o.vm_specs_ids" t-as="vm_specs">
+                                    <tr style="background-color: #f2f2f2; font-weight: bold;">
+                                        <td class="text-left">
+                                            <span t-esc="vm_specs.name"/>
+                                        </td>
+                                        <td class="text-left">
+                                            <span t-esc="vm_specs.operating_system"/>
+                                        </td>
+                                        <td class="text-left">
+                                            <span t-esc="vm_specs.cpu_cores"/>
+                                        </td>
+                                        <td class="text-left">
+                                            <span t-esc="vm_specs.ram"/>
+                                        </td>
+                                        <td class="text-left">
+                                            <span t-esc="vm_specs.storage"/>
+                                        </td>
+                                        <td class="text-left">
+                                            <span t-esc="vm_specs.ip_address"/>
+                                        </td>
+                                        <td class="text-left">
+                                            <t t-if="vm_specs.status == 'active'">
+                                                <span>Active</span>
+                                            </t>
+                                        </td>
+                                        <td class="text-left">
+                                            <span t-esc="vm_specs.ownership"/>
+                                        </td>
+                                    </tr>
+                                </t>
+
+                            </tbody>
+                        </table>
+                        <div style="page-break-after: always;"></div>
+                    </t>
+                </div>
+            </t>
+        </t>
+    </template>
+</odoo>
