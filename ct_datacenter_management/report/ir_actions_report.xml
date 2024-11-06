@@ -12,7 +12,7 @@
     </record>
 
 
-    <!--<record id="action_print_datacenter_excel_report"
+    <record id="action_print_datacenter_excel_report"
                 model="ir.actions.server">
             <field name="name">DataCenter Report Excel</field>
             <field name="model_id" ref="model_rack_server"/>
@@ -22,7 +22,7 @@
             <field name="code">
                 action = record.print_excel_report()
             </field>
-        </record>-->
+        </record>
 
     </data>
 
