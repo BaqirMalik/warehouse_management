@@ -2,8 +2,10 @@
 <odoo>
     <template id="report_datacenter_detail">
         <t t-call="web.html_container">
-            <t t-call="web.external_layout">
+            <t t-call="web.internal_layout">
+                <t t-call="ct_datacenter_management.custom_layout_header"/>
                 <div class="page">
+                    <div class="oe_structure"></div>
                     <div class="row" id="hash_header">
                         <div class="col-12">
                             <h1 style="text-align:center;">DataCenter Report</h1>
@@ -101,7 +103,6 @@
                                         </td>
                                     </tr>
                                 </t>
-
                             </tbody>
                         </table>
                         <div style="page-break-after: always;"></div>
