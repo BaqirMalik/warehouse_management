@@ -1,8 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
+
+    <template id="custom_layout_header">
+        <div class="header">
+            <t t-set="company" t-value="docs.env.company"/>
+            <div class="container">
+                <div class="row">
+                <div class="col-4">
+                    <img t-attf-src="/web/binary/company_logo?company={{ res_company.id }}"/>
+                </div>
+                <div class="col-8">
+                    <div class="address" style="float:right;">
+                        <span t-esc="company.street"/><br/>
+                    <span t-esc="company.street2"/><br/>
+                    <span t-esc="company.city"/><span>, </span><span t-esc="company.country_id.name"/><br/>
+                    </div>
+
+                </div>
+            </div>
+            </div>
+        </div>
+    </template>
+
+
+    <template id="custom_layout_footer">
+        <div class="footer">
+            <t t-set="company" t-value="docs.env.company"/>
+            <div class="container">
+                <div class="row">
+                    <p class="text-center">Copyright (c) 2024-Crecentech Pvt. Ltd. <a href="https://crecentech.com/"/>Crecentech</p>
+                </div>
+            </div>
+        </div>
+    </template>
+
+
     <template id="report_assets_detail">
         <t t-call="web.html_container">
-            <t t-call="web.external_layout">
+            <t t-call="web.basic_layout">
+                <t t-call="ct_employees_management.custom_layout_header"/>
                 <div class="page">
                     <div class="row" id="hash_header">
                         <div class="col-12">
@@ -108,6 +144,7 @@
                         </tbody>
                     </table>
                 </div>
+                <t t-call="ct_employees_management.custom_layout_footer"/>
             </t>
         </t>
     </template>
