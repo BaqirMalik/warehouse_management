@@ -66,15 +66,15 @@ class InheritHrEmployee(models.Model):
         redirect_link = '%s/web#id=%d&view_type=form&model=%s' % (base_url, res.id, res._name)
         res.write({'redirect_link': redirect_link})
 
-        template = self.sudo().env().ref('ct_employees_management.employee_email_template')
-        IrMailServer = self.sudo().env['ir.mail_server'].search([('name', '=', 'Crecentech Outgoing Email Server')])
-        template.sudo().write({'email_from': IrMailServer.smtp_user})
-        users = self.env['res.users'].search(
-            [('groups_id', 'in', [self.env.ref('ct_employees_management.group_hr_it_employee').id])]
-        )
-        for user in users:
-            template.sudo().write({'email_to': user.login})
-            template.send_mail(res.id, force_send=True)
+        # template = self.sudo().env().ref('ct_employees_management.employee_email_template')
+        # IrMailServer = self.sudo().env['ir.mail_server'].search([('name', '=', 'Crecentech Outgoing Email Server')])
+        # template.sudo().write({'email_from': IrMailServer.smtp_user})
+        # users = self.env['res.users'].search(
+        #     [('groups_id', 'in', [self.env.ref('ct_employees_management.group_hr_it_employee').id])]
+        # )
+        # for user in users:
+        #     template.sudo().write({'email_to': user.login})
+        #     template.send_mail(res.id, force_send=True)
         return res
 
     def write(self, vals):
@@ -126,9 +126,9 @@ class InheritHrDepartureWizard(models.TransientModel):
 
     def action_register_departure(self):
         res = super(InheritHrDepartureWizard, self).action_register_departure()
-        users = self.env['res.users'].search(
-            [('groups_id', 'in', [self.env.ref('ct_employees_management.group_hr_it_employee').id])]
-        )
+        # users = self.env['res.users'].search(
+        #     [('groups_id', 'in', [self.env.ref('ct_employees_management.group_hr_it_employee').id])]
+        # )
         for rec in self:
             if rec.departure_date:
                 rec.employee_id.resignation_date = rec.departure_date
@@ -137,10 +137,10 @@ class InheritHrDepartureWizard(models.TransientModel):
             base_url = self.env['ir.config_parameter'].sudo().get_param('web.base.url')
             redirect_link = '%s/web#id=%d&view_type=form&model=%s' % (base_url, self.employee_id.id, self.employee_id._name)
             self.employee_id.write({'redirect_link': redirect_link})
-            template = self.sudo().env().ref('ct_employees_management.employee_resignation_email_template')
-            IrMailServer = self.sudo().env['ir.mail_server'].search([('name', '=', 'Crecentech Outgoing Email Server')])
-            template.sudo().write({'email_from': IrMailServer.smtp_user})
-        for user in users:
-            template.sudo().write({'email_to': user.login})
-            template.send_mail(self.employee_id.id, force_send=True)
+            # template = self.sudo().env().ref('ct_employees_management.employee_resignation_email_template')
+            # IrMailServer = self.sudo().env['ir.mail_server'].search([('name', '=', 'Crecentech Outgoing Email Server')])
+            # template.sudo().write({'email_from': IrMailServer.smtp_user})
+        # for user in users:
+        #     template.sudo().write({'email_to': user.login})
+        #     template.send_mail(self.employee_id.id, force_send=True)
         return res

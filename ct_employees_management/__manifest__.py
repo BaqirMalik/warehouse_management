@@ -20,7 +20,7 @@ Long description of module's purpose
         'data/laptop_specs.xml',
         'data/provident_fund_conf.xml',
         'data/ir_cron.xml',
-        'data/employee_mail_temp.xml',
+        # 'data/employee_mail_temp.xml',
         'report/ir_actions_report.xml',
         'report/ir_actions_report_templates.xml',
         'views/employee_assets.xml',
