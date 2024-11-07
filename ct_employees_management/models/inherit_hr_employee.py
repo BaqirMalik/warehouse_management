@@ -80,9 +80,15 @@ class InheritHrEmployee(models.Model):
     def write(self, vals):
         res = super(InheritHrEmployee, self).write(vals)
         asset_id = vals.get('employee_assets')
-        if len(vals) == 1 and 'employee_assets' in vals:
+        if 'employee_assets' in vals:
             for rec in self:
                 if asset_id:
+                    previous_asset = self.env['employee.assets.history'].search([
+                        ('employee_id', '=', rec.id)
+                    ], limit=1, order='id desc')
+                    if previous_asset:
+                        previous_asset.asset_id.state = 'ready'
+
                     for employee in self:
                         self.env['employee.assets.history'].create({
                             'employee_id': employee.id,
@@ -91,12 +97,6 @@ class InheritHrEmployee(models.Model):
                         })
                     self.employee_assets.employee_id = self.id
                     self.employee_assets.state = 'assigned'
-                else:
-                    previous_asset = self.env['employee.assets.history'].search([
-                        ('employee_id', '=', rec.id)
-                    ], limit=1, order='id desc')
-                    if previous_asset:
-                        previous_asset.asset_id.state = 'ready'
         return res
 
 
