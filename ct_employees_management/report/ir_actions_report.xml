@@ -12,7 +12,7 @@
             <field name="binding_type">report</field>
         </record>
 
-        <!--<record id="action_print_assets_excel_report"
+        <record id="action_print_assets_excel_report"
                 model="ir.actions.server">
             <field name="name">Assets Report Excel</field>
             <field name="model_id" ref="model_employee_assets"/>
@@ -22,7 +22,7 @@
             <field name="code">
                 action = record.print_excel_report()
             </field>
-        </record>-->
+        </record>
 
     </data>
 </odoo>

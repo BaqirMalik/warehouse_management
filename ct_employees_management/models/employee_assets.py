@@ -1,5 +1,11 @@
+import io
+import json
+
+import xlsxwriter
+
 from odoo import models, fields, api, _
 from odoo.exceptions import ValidationError, UserError
+from odoo.tools import date_utils
 
 
 class EmployeeAssets(models.Model):
@@ -84,6 +90,65 @@ class EmployeeAssets(models.Model):
             if rec.employee_id:
                 raise ValidationError(_('You Cannot Delete an asset that is Assigned to Employee!'))
         return super(EmployeeAssets, self).unlink()
+
+    def print_excel_report(self):
+        data = self._context['active_ids']
+        return {
+            'type': 'ir.actions.report',
+            'report_type': 'xlsx',
+            'data': {'model': 'employee.assets',
+                     'output_format': 'xlsx',
+                     'options': json.dumps(data,
+                                           default=date_utils.json_default),
+                     'report_name': 'Assets/Detail Excel Report', }, }
+
+    def get_xlsx_report(self, datas, response):
+        """ From this function we can create and design the Excel file template
+                 and the map the values in the corresponding cells
+            :param datas: Selected record ids
+            :param response: Response after creating excel
+        """
+        output = io.BytesIO()
+        workbook = xlsxwriter.Workbook(output, {'in_memory': True})
+
+        # Create a single worksheet for all assets
+        sheet = workbook.add_worksheet('Employee Assets')
+
+        # Set column width and headers
+        sheet.set_column(0, 2, 25)
+        sheet.set_column(3, 10, 15)
+        txt = workbook.add_format({'bold': True})
+        sheet.write('A1', 'Assets Name', txt)
+        sheet.write('B1', 'Employee Name', txt)
+        sheet.write('C1', 'Pseudo Name', txt)
+        sheet.write('D1', 'Core', txt)
+        sheet.write('E1', 'Generation', txt)
+        sheet.write('F1', 'RAM', txt)
+        sheet.write('G1', 'ROM', txt)
+        sheet.write('H1', 'Mouse', txt)
+        sheet.write('I1', 'Charger', txt)
+        sheet.write('J1', 'HeadPhone', txt)
+        sheet.write('K1', 'Status', txt)
+
+        row = 1  # Start writing data from the second row
+        for assets in self.env['employee.assets'].browse(datas):
+            sheet.write(row, 0, assets.name)
+            sheet.write(row, 1, assets.employee_id.name)
+            sheet.write(row, 2, assets.employee_id.pseudo_name)
+            sheet.write(row, 3, assets.core.name)
+            sheet.write(row, 4, assets.generation.name)
+            sheet.write(row, 5, assets.ram)
+            sheet.write(row, 6, assets.rom)
+            sheet.write(row, 7, assets.mouse)
+            sheet.write(row, 8, assets.charger)
+            sheet.write(row, 9, assets.headphone)
+            sheet.write(row, 10, assets.state.capitalize())
+            row += 1
+
+        workbook.close()
+        output.seek(0)
+        response.stream.write(output.read())
+        output.close()
 
 
     class EmployeeAssitsLines(models.Model):
