@@ -8,6 +8,12 @@ from odoo.exceptions import ValidationError, UserError
 from odoo.tools import date_utils
 
 
+def check_boolean_value(value):
+    if value:
+        result = 'yes'
+    else:
+        result = 'No'
+    return result
 class EmployeeAssets(models.Model):
     _name = 'employee.assets'
     _description = 'employee assets'
@@ -139,9 +145,9 @@ class EmployeeAssets(models.Model):
             sheet.write(row, 4, assets.generation.name)
             sheet.write(row, 5, assets.ram)
             sheet.write(row, 6, assets.rom)
-            sheet.write(row, 7, assets.mouse)
-            sheet.write(row, 8, assets.charger)
-            sheet.write(row, 9, assets.headphone)
+            sheet.write(row, 7, check_boolean_value(assets.mouse))
+            sheet.write(row, 8, check_boolean_value(assets.charger))
+            sheet.write(row, 9, check_boolean_value(assets.headphone))
             sheet.write(row, 10, assets.state.capitalize())
             row += 1
 
