@@ -138,17 +138,17 @@ class EmployeeAssets(models.Model):
 
         row = 1  # Start writing data from the second row
         for assets in self.env['employee.assets'].browse(datas):
-            sheet.write(row, 0, assets.name)
-            sheet.write(row, 1, assets.employee_id.name)
-            sheet.write(row, 2, assets.employee_id.pseudo_name)
-            sheet.write(row, 3, assets.core.name)
-            sheet.write(row, 4, assets.generation.name)
-            sheet.write(row, 5, assets.ram)
-            sheet.write(row, 6, assets.rom)
+            sheet.write(row, 0, assets.name or '')
+            sheet.write(row, 1, assets.employee_id.name or '')
+            sheet.write(row, 2, assets.employee_id.pseudo_name or '')
+            sheet.write(row, 3, assets.core.name or '')
+            sheet.write(row, 4, assets.generation.name or '')
+            sheet.write(row, 5, assets.ram or '')
+            sheet.write(row, 6, assets.rom or '')
             sheet.write(row, 7, check_boolean_value(assets.mouse))
             sheet.write(row, 8, check_boolean_value(assets.charger))
             sheet.write(row, 9, check_boolean_value(assets.headphone))
-            sheet.write(row, 10, assets.state.capitalize())
+            sheet.write(row, 10, assets.state.capitalize() or '')
             row += 1
 
         workbook.close()
