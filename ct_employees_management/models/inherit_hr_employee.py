@@ -38,10 +38,10 @@ class InheritHrEmployee(models.Model):
     @api.depends('name', 'pseudo_name')
     def _compute_display_name(self):
         for rec in self:
-            if rec.name:
+            if rec.name and rec.pseudo_name:
                 rec.display_name = f"{rec.name} - {rec.pseudo_name}"
             else:
-                rec.display_name = False
+                rec.display_name = rec.name
     def _compute_is_field_readonly(self):
         for record in self:
             if not self.env.user.has_group("hr.group_hr_manager"):
